@@ -16,16 +16,35 @@
  * Adds a random greeting to the page.
  */
 function recommendRandomShow() {
-  const greetings =
-      ['Simpsons', 'Gossip Girl', 'Community', 'Emily in Paris'];
+  const shows =
+      ['The Good Place', 'Gossip Girl', 'Community', 'Emily in Paris'];
 
   // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  const show = shows[Math.floor(Math.random() * shows.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const showContainer = document.getElementById('tv-show-container');
+  showContainer.innerText = show;
 }
+
+/**
+ * Adds a random fact to the page.
+ */
+function randomFact() {
+  const facts =
+      ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
+      'favourite singer - Lady Gaga', 'still dreams to become an astronauts', '90% of times remembers her dreams'];
+
+  // Pick a random greeting.
+  const fact = facts[Math.floor(Math.random() * facts.length)];
+
+  // Add it to the page.
+  const factContainer = document.getElementById('fact-container');
+  factContainer.innerText = fact;
+}
+
+
+
 // Automatic Slideshow - change image every 3 seconds
 var myIndex = 0;
 carousel();

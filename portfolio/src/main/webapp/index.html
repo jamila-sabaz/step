@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Jamila's Portfolio</title>
-        <link rel="stylesheet" href="style.css">
+				<link rel="stylesheet" href="style.css">
+				<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="script.js"></script>
     </head>
 
@@ -64,15 +65,21 @@
             </section>
 
             <center>
-                <h4>Click here to get a random tv show suggestion from Jamila:</h4>
-                <button onclick="recommendRandomShow()">tv show?</button>
-                <div id="tv-show-container">
-
-								</div>
+                <article class="w3-half">
+									<h4>Click here to get a random tv show suggestion from Jamila:</h4>
+                	<button onclick="recommendRandomShow()">tv show?</button>
+									<div id="tv-show-container"></div>
+								</article>
+								<article class="w3-half">
+									<h4>Click here to get a random fact about Jamila:</h4>
+                	<button onclick="f=randomFact()">Random Fact?</button>
+                	<div id="fact-container"></div>
+								</article>
             </center>
             
             <!-- Table with my projects tbc -->
             <center>
+								<h2>My Projects</h3>
                 <table class="w3-table w3-striped w3-border">
                     <tr>
                         <td>Dates</td>

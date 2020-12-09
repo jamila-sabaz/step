@@ -17,12 +17,14 @@
 #tv-show-container {
 	margin-top: 20px;
 	width: 50%;
-  border:2px solid rgb(59, 170, 221);
+	border:2px solid rgb(59, 170, 221);
+	background-color: rgb(131, 204, 238);
 }
 #fact-container {
 	margin-top: 20px;
 	width: 50%;
-  border:2px solid rgb(155, 12, 155);
+	border:2px solid rgb(155, 12, 155);
+	background-color: rgb(209, 142, 209);
 }
 
 body, html {

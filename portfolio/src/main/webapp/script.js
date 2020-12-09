@@ -15,7 +15,7 @@
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
+function recommendRandomShow() {
   const greetings =
       ['Simpsons', 'Gossip Girl', 'Community', 'Emily in Paris'];
 

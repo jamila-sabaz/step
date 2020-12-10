@@ -6,11 +6,11 @@
 #content {
   width: 300px;
   color: rgb(65, 9, 9);
-  width: 100%;
+	width: 100%;
   background-color:hsla(9, 100%, 64%, 0.5);
 }
 #about-me{
-	width:80%;
+    width: 70%;
 	margin-left:15%;
 	margin-right:15%;
 }
@@ -19,9 +19,20 @@
 }
 
 #projects{
-	width: 100%;
+    margin-left:15%;
+	margin-right:15%;
+	width: 70%;
 	height: 1000px;
 	background-color: hsla(9, 100%, 64%, 0.5);
+}
+#project-header{
+    
+	width:100%;
+}
+#table{
+    width: 100%;
+
+    position: center; 
 }
 #randomshow{
 	height: 150px;
@@ -31,6 +42,10 @@
 	
 	height: 150px;
 	background-color:  rgb(255, 235, 235);
+}
+#buttons-container{
+	margin-left:15%;
+	margin-right:15%;
 }
 #tv-show-container {
 	margin-top: 20px;
@@ -48,6 +63,7 @@
 body, html {
     height: 100%;
 }
+
 /* The hero image */
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */

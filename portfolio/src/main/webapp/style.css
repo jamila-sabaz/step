@@ -15,7 +15,7 @@
 	margin-right:15%;
 }
 #bio{   
-	max-width:100%;
+	max-width:70%;
 }
 
 #projects{
@@ -67,7 +67,7 @@ body, html {
 /* The hero image */
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./images/Screen\ Shot\ 2020-12-09\ at\ 12.22.35\ am.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./images/myphoto.jpeg");
   /* Set a specific height */
   height: 100%;
   /* Position and center the image to scale nicely on all screens */

@@ -98,3 +98,12 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
+
+function navBar() {
+  let navBar = document.getElementById("myTopnav");
+  if (navBar.className === "topnav") {
+    navBar.className += " responsive";
+  } else {
+    navBar.className = "topnav";
+  }
+}

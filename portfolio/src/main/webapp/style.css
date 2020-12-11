@@ -114,7 +114,18 @@ img {vertical-align: middle;}
   border-radius: 0 3px 3px 0;
   user-select: none;
 }
+.flex-container {
+  display: flex;
+  flex: 1 1 0px;
+  background-color: DodgerBlue;
+}
 
+.flex-container > div {
+  background-color: #f1f1f1;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+}
 /* Position the "next button" to the right */
 .next {
   right: 0;

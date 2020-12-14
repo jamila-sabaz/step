@@ -15,9 +15,14 @@
 /**
  * Adds a random greeting to the page.
  */
+
+ //Create a boolean flag to note when the button for random show and random fact have been 
+ //clicked so they will open on first click and close on the second click
 showHasBeenClicked = false;
 factHasBeenClicked = false;
+
 function recommendRandomShow() {
+    //options for randomiser
   const shows =
     ['The Good Place', 'Gossip Girl', 'Community', 'Emily in Paris', 'How I met Your Mother'];
     
@@ -97,13 +102,4 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
-}
-
-function navBar() {
-  let navBar = document.getElementById("myTopnav");
-  if (navBar.className === "topnav") {
-    navBar.className += " responsive";
-  } else {
-    navBar.className = "topnav";
-  }
 }

@@ -31,12 +31,12 @@ function recommendRandomShow() {
 
   // Add it to the page.
   const showContainer = document.getElementById('tv-show-container');
-  
+  //check if the button has been clicked already and if yes collapse container
   if (showHasBeenClicked === true){
     showContainer.innerText = null;
     showHasBeenClicked = false;
   }
-    
+  //if not show container and flag it as clicked  
   else{
       showContainer.innerText = show;
       showHasBeenClicked = true;
@@ -47,59 +47,79 @@ function recommendRandomShow() {
  * Adds a random fact to the page.
  */
 function randomFact() {
-  const facts =
+  //options for randomiser
+    const facts = 
     ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
-    'favourite singer - Lady Gaga', 'still dreams to become an astronauts', '90% of times remembers her dreams'];
+    'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
+  //check if clicked and if so show nothinhg
     if (factHasBeenClicked === true){
       factContainer.innerText = null;
       factHasBeenClicked = false;
     }
-  else{
+    //else if not clicked show the container and flag as clicked
+    else{
       factContainer.innerText = fact;
       factHasBeenClicked = true;
   }
 }
-//Button
+
+//Button for 3 sections about me
 function openSection(id) {
   var section = document.getElementById(id);
+  //check if class of the container is not w3-show (it is hide) 
+  //then add class name to show
   if (section.className.indexOf("w3-show") == -1) {
     section.className += " w3-show";
-  } else {
+  } 
+  //if it is already on show, remove w3-show class to null so it will be hidden
+  else {
     section.className = section.className.replace(" w3-show", "");
   } 
 }
 /**
  * Slideshow 
  */
+//Using event listener check if DOM content of the page has been loaded completely 
+//only after it is loaded function showSlides is called
 document.addEventListener('DOMContentLoaded', () => {
 showSlides(0);
 });
+
+//this function makes button with arrows move to the Next and Previous slides
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
 
+//this function binds dots indicators with the slides to control them
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
 
+//this function is main, it takes initial counter and manages slides 
 function showSlides(n) {
-  let i;
+  let i; //index for 'for' loops
   let slides = document.getElementsByClassName("mySlides");
   let dots = document.getElementsByClassName("dot");
+  //check if counter of slides is exceeding number of slider and if yes, reset slide index to 1
   if (n > slides.length) {slideIndex = 1}    
+  //if counter=0 set slide index to max number of slides (length =3)
   if (n < 1) {slideIndex = slides.length}
+    //initially all slides are hidden (show none)
   for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";  
   }
+  //and replace all dots form active to NULL to display inactive mode
   for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
   }
+  //brings the slide back (makes it visible)
   slides[slideIndex-1].style.display = "block";  
+  //the dot becomes 'active' (indicator is brighter)
   dots[slideIndex-1].className += " active";
 }

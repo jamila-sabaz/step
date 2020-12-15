@@ -123,3 +123,13 @@ function showSlides(n) {
   //the dot becomes 'active' (indicator is brighter)
   dots[slideIndex-1].className += " active";
 }
+
+/**
+ * Fetch data from the server.
+ */
+function getServerData() {
+  fetch('/data').then(response => response.text()).then((myJSON) => {
+    document.getElementById('quote-container').innerText = myJSON;
+  });
+}
+

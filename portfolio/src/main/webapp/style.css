@@ -220,3 +220,6 @@ img {vertical-align: middle;}
   background: #f44336;
   color: white;
 }
+#quote-container {
+  margin-top: 20px;
+}

@@ -129,7 +129,7 @@ function showSlides(n) {
  */
 function getServerData() {
   fetch('/data').then(response => response.text()).then((myJSON) => {
-    document.getElementById('quote-container').innerText = myJSON;
+    document.getElementById('data-container').innerText = myJSON;
   });
 }
 

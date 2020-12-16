@@ -128,8 +128,10 @@ function showSlides(n) {
  * Fetch data from the server.
  */
 function getServerData() {
-  fetch('/data').then(response => response.text()).then((myJSON) => {
-    document.getElementById('data-container').innerText = myJSON;
-  });
+  fetch('/data')
+  .then(response => response.text())
+  .then( (myJSON) => document
+  .getElementById('data-container')
+  .innerText = myJSON );
 }
 

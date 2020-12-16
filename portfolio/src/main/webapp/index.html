@@ -3,12 +3,12 @@
 
 
 	<head>
-		<meta charset="UTF-8">
-		<title>Jamila's Portfolio</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <title>Jamila's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="script.js"></script>
 	</head>
 
 	<body>
@@ -19,8 +19,10 @@
 			<div class="hero-text">
 				<h1>I am Zhamilya (Jamila) Sabazova</h1>
 				<p>And I'm a Software Engineer from Adelaide</p>
-				<button onclick="getServerData()" type="button">JSON Server Data</button>
-                <div id="data-container"></div>
+				<!-- NOT USED ANYMORE <button onclick="getServerData()" type="button">JSON Server Data</button>
+        <div id="data-container"></div><br> -->
+        <button onclick="location.href='#about-me'" type="button">About me</button><br>
+        <button onclick="location.href='#projects'" type="button">My Projects</button>
 			</div>
 		</div>
 			
@@ -177,7 +179,19 @@
 					</table>
 				</center>
 			</div> 
-			
+    <center>
+      <h1>Contact Form</h1>
+      <form action="/data" method="POST">
+        <p>Please enter your full name:</p>
+        <textarea name="name-input"></textarea>
+        <br/><br/>
+        <p>Please enter your enquiry here:</p>
+        <textarea name="text-input"></textarea>
+        <br/><br/>
+        <input type="submit" />
+      </form>	
+    </center>
+      
 		</div>
 
 		<!-- Footer -->

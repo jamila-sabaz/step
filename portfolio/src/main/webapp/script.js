@@ -38,8 +38,7 @@ function recommendRandomShow() {
   else{
     showContainer.innerText = show;
     showHasBeenClicked = true;
-  }
-    
+  }  
 }
 /**
  * Adds a random fact to the page.

@@ -1,66 +1,62 @@
 #UTF-8 {
-	background-color: Tomato;
-	color: rgb(10, 124, 124);
-	height: 100%;
+  background-color: Tomato;
+  color: rgb(10, 124, 124);
+  height: 100%;
 }
 #content {
   width: 300px;
   color: rgb(65, 9, 9);
-	width: 100%;
+  width: 100%;
   background-color:hsla(9, 100%, 64%, 0.5);
 }
-#about-me{
-    width: 70%;
-	margin-left:15%;
-	margin-right:15%;
+#about-me {
+  width: 70%;
+  margin-left:15%;
+  margin-right:15%;
 }
-#bio{   
-    max-width:70%;
-    margin-left:15%;
-	margin-right:15%;
+#bio {   
+  max-width:70%;
+  margin-left:15%;
+  margin-right:15%;
 }
 
-#projects{
-    margin-left:15%;
-	margin-right:15%;
-	width: 70%;
-	height: 1000px;
-	background-color: hsla(9, 100%, 64%, 0.5);
+#projects {
+  margin-left:15%;
+  margin-right:15%;
+  width: 70%;
+  height: 1000px;
+  background-color: hsla(9, 100%, 64%, 0.5);
 }
-#project-header{
-    
-	width:100%;
+#project-header {
+  width:100%;
 }
-#table{
-    width: 100%;
-
-    position: center; 
+#table {
+  width: 100%;
+  position: center; 
 }
-#randomshow{
-	height: 150px;
-	background-color:  rgb(255, 235, 235);
+#randomshow {
+  height: 150px;
+  background-color:  rgb(255, 235, 235);
 }
-#randomfact{
-	
-	height: 150px;
-	background-color:  rgb(255, 235, 235);
+#randomfact {
+  height: 150px;
+  background-color:  rgb(255, 235, 235);
 }
-#buttons-container{
-	margin-left:15%;
-	margin-right:15%;
+#buttons-container {
+  margin-left:15%;
+  margin-right:15%;
 }
 #tv-show-container {
-	margin-top: 20px;
-	width: 300px;
-	border:2px solid rgb(59, 170, 221);
+  margin-top: 20px;
+  width: 300px;
+  border:2px solid rgb(59, 170, 221);
   background-color: rgb(131, 204, 238);
-  
 }
 #fact-container {
-	margin-top: 20px;
+  margin-top: 20px;
   width: 300px;
-	border:2px solid rgb(155, 12, 155);
-	background-color: rgb(209, 142, 209);
+  border:2px solid rgb(155, 12, 155);
+  background-color: rgb(209, 142, 209);
 }
 body, html {
     height: 100%;

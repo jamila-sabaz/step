@@ -22,7 +22,7 @@ showHasBeenClicked = false;
 factHasBeenClicked = false;
 
 function recommendRandomShow() {
-    //options for randomiser
+  //options for randomiser
   const shows =
     ['The Good Place', 'Gossip Girl', 'Community', 'Emily in Paris', 'How I met Your Mother'];
     
@@ -38,10 +38,9 @@ function recommendRandomShow() {
   }
   //if not show container and flag it as clicked  
   else{
-      showContainer.innerText = show;
-      showHasBeenClicked = true;
-  }
-    
+    showContainer.innerText = show;
+    showHasBeenClicked = true;
+  } 
 }
 /**
  * Adds a random fact to the page.
@@ -49,8 +48,8 @@ function recommendRandomShow() {
 function randomFact() {
   //options for randomiser
     const facts = 
-    ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
-    'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
+      ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
+      'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];

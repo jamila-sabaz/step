@@ -27,18 +27,17 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// Get the input from the form.
-		String fullName = getParameter(request, "name-input", "");
+    // Get the input from the form.
+    String fullName = getParameter(request, "name-input", "");
     String text = getParameter(request, "text-input", "");
-
-		// Break the text into individual words.
-		String[] names = fullName.split("\\s*,\\s*");
+    // Break the text into individual words.
+    String[] names = fullName.split("\\s*,\\s*");
     String[] words = text.split("\\s*,\\s*");
 
     // Respond with the result.
-		response.setContentType("text/html;");
-		response.getWriter().print("A message from: ");
-		response.getWriter().println(Arrays.toString(names));
+    response.setContentType("text/html;");
+    response.getWriter().print("A message from: ");
+    response.getWriter().println(Arrays.toString(names));
     response.getWriter().println(Arrays.toString(words));
   }
 

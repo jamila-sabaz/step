@@ -16,8 +16,8 @@
  * Adds a random greeting to the page.
  */
 
- //Create a boolean flag to note when the button for random show and random fact have been 
- //clicked so they will open on first click and close on the second click
+//Create a boolean flag to note when the button for random show and random fact have been 
+//clicked so they will open on first click and close on the second click
 showHasBeenClicked = false;
 factHasBeenClicked = false;
 
@@ -124,8 +124,8 @@ function showSlides(n) {
 }
 
 /**
- * Fetch data from the server.
- */
+* Fetch data from the server.
+*/
 function getServerData() {
   fetch('/data')
     .then((response) => response.text())

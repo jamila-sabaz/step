@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
- //Create a boolean flag to note when the button for random show and random fact have been 
- //clicked so they will open on first click and close on the second click
+//Create a boolean flag to note when the button for random show and random fact have been 
+//clicked so they will open on first click and close on the second click
 showHasBeenClicked = false;
 factHasBeenClicked = false;
 /**
@@ -36,8 +36,8 @@ function recommendRandomShow() {
   }
   // If not show container and flag it as clicked.
   else{
-		showContainer.innerText = show;
-		showHasBeenClicked = true;
+    showContainer.innerText = show;
+    showHasBeenClicked = true;
   }
     
 }
@@ -46,9 +46,9 @@ function recommendRandomShow() {
  */
 function randomFact() {
   // Options for randomiser.
-	const facts = 
-	['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
-	'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
+  const facts = 
+  ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
+  'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
@@ -56,15 +56,15 @@ function randomFact() {
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
   // Check if clicked and if so show nothinhg.
-	if (factHasBeenClicked === true){
-		factContainer.innerText = null;
-		factHasBeenClicked = false;
-	}
-	// Else if not clicked show the container and flag as clicked.
-	else{
-		factContainer.innerText = fact;
-		factHasBeenClicked = true;
-	}
+  if (factHasBeenClicked === true){
+    factContainer.innerText = null;
+    factHasBeenClicked = false;
+  }
+  // Else if not clicked show the container and flag as clicked.
+  else{
+    factContainer.innerText = fact;
+    factHasBeenClicked = true;
+  }
 }
 /**
  * Button for 3 sections #about-me.

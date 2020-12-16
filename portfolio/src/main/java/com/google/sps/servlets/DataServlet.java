@@ -19,24 +19,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import com.google.gson.Gson;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
-	// String[] arrays = { "name : Jamila", "Age : 20", "City : Adelaide" };
-  // Gson gson = new Gson();
-  // String json = gson.toJson(ArrayList);
-
-  // @Override
-  // public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-  //   response.setContentType("text/html;");
-  //   response.getWriter().println("<h1>Hello Jamila!</h1>");
-  //   response.getWriter().println(json);
-  // }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

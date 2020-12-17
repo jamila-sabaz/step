@@ -44,10 +44,11 @@ function recommendRandomShow() {
  * Adds a random fact to the page.
  */
 function randomFact() {
+
   // Options for randomiser.
-  const facts = 
-  ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
-  'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
+    const facts = 
+      ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
+      'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
@@ -121,3 +122,15 @@ function showSlides(n) {
   // The dot becomes 'active' (indicator is brighter).
   dots[slideIndex-1].className += " active";
 }
+
+/**
+* Fetch data from the server.
+*/
+function getServerData() {
+  fetch('/data')
+    .then((response) => response.text())
+    .then((myJSON) => {
+      document.getElementById('data-container').innerText = myJSON;
+    });
+}
+

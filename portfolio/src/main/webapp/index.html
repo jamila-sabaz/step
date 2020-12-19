@@ -169,6 +169,7 @@
           </table>
         </center>
       </div> 
+
       <center>
         <h1>Contact Form</h1>
         <form action="/data" method="POST">
@@ -178,9 +179,23 @@
           <p>Please enter your enquiry here:</p>
           <textarea name="text-input"></textarea>
           <br/><br/>
-          <input type="submit" />
+          <input type="submit">
         </form>	
+      
+        <h1>Todo List</h1>
+
+        <form method="POST" action="/data">
+          <input type="text" name="title" />
+          <br/>
+          <button>Submit</button>
+        </form>
+
+        <hr/>
+
+        <ul id="comment-list"></ul>
+
       </center>
+      
     </div>
   </body>
   <!-- Footer -->

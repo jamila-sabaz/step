@@ -134,3 +134,27 @@ function getServerData() {
     });
 }
 
+/** Fetches comments from the server and adds them to the DOM. */
+function loadComments() {
+  fetch('/data')
+    .then(response => response.json())
+    .then((comments) => {
+      const commentListElement = document.getElementById('comment-list');
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+    })
+  });
+}
+
+/** Creates an element that represents a comment, including its delete button. */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
+
+  const titleElement = document.createElement('span');
+  titleElement.innerText = comment.title;
+
+  commentElement.appendChild(titleElement);
+  commentElement.appendChild(deleteButtonElement);
+  return commentElement;
+}

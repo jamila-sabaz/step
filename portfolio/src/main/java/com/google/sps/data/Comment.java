@@ -13,8 +13,9 @@
 // limitations under the License.
 
 package com.google.sps.data;
-
-/** An item on a todo list. */
+/**
+ * Class representing the comment object with its properties.
+ */
 public final class Comment {
 
   private final long id;

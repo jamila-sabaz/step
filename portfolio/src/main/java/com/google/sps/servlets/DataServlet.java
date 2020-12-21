@@ -17,7 +17,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.FetchOptions;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,17 +31,11 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 
 /** Servlet that encapsulates some data from training exercises. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  
-  // Hard-coded value to limit number of comments on the page.
-  private int limit = 5;
-  private int count = 0;
-  // private Object lock = new Object();
+
   /* Do Get function to fetch and list the todo list items onto the home page*/
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
@@ -69,32 +63,11 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(comments));
   }
 
-
+  /* Do Post function responsible for creating new tasks. */ 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
   {
-
-    // Hidden Parameter to determine which form to post
-    String hiddenParam=request.getParameter("Parameter-Name");
-    if(hiddenParam.equals("form-contact") )
-    {
-      // Get the input from the form.
-      String fullName = getParameter(request, "name-input", "");
-      String text = getParameter(request, "text-input", "");
-      // Break the text into individual words.
-      String[] names = fullName.split("\\s*,\\s*");
-      String[] words = text.split("\\s*,\\s*");
-
-      // Respond with the result.
-      response.setContentType("text/html;");
-      response.getWriter().print("A message from: ");
-      response.getWriter().println(Arrays.toString(names));
-      response.getWriter().println(Arrays.toString(words));
-    }
-   
-    else if(hiddenParam.equals("form-comment"))
-    {
-      // Here starts the New Comment part.
+      // Method to create and send New Comment to the server.
       String title = request.getParameter("title");
       long timestamp = System.currentTimeMillis();
 
@@ -108,7 +81,6 @@ public class DataServlet extends HttpServlet {
 
       // After the procedure go back to the home page.
       response.sendRedirect("/index.html");
-    }
   }
   
   /**
@@ -116,6 +88,7 @@ public class DataServlet extends HttpServlet {
    *         was not specified by the client
    */
   
+   /* Private function accessing the properties of the Comment-objects. */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) 
   {
     String value = request.getParameter(name);

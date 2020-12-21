@@ -67,41 +67,48 @@ public class DataServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
-
   }
 
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
+  {
 
-    // Get the input from the form.
-    String fullName = getParameter(request, "name-input", "");
-    String text = getParameter(request, "text-input", "");
-    // Break the text into individual words.
-    String[] names = fullName.split("\\s*,\\s*");
-    String[] words = text.split("\\s*,\\s*");
+    // Hidden Parameter to determine which form to post
+    String hiddenParam=request.getParameter("Parameter-Name");
+    if(hiddenParam.equals("form-contact") )
+    {
+      // Get the input from the form.
+      String fullName = getParameter(request, "name-input", "");
+      String text = getParameter(request, "text-input", "");
+      // Break the text into individual words.
+      String[] names = fullName.split("\\s*,\\s*");
+      String[] words = text.split("\\s*,\\s*");
 
-    // Respond with the result.
-    response.setContentType("text/html;");
-    response.getWriter().print("A message from: ");
-    response.getWriter().println(Arrays.toString(names));
-    response.getWriter().println(Arrays.toString(words));
+      // Respond with the result.
+      response.setContentType("text/html;");
+      response.getWriter().print("A message from: ");
+      response.getWriter().println(Arrays.toString(names));
+      response.getWriter().println(Arrays.toString(words));
+    }
+   
+    else if(hiddenParam.equals("form-comment"))
+    {
+      // Here starts the New Comment part.
+      String title = request.getParameter("title");
+      long timestamp = System.currentTimeMillis();
 
-    // Here starts the New Comment part.
-    String title = request.getParameter("title");
-    long timestamp = System.currentTimeMillis();
+      Entity commentEntity = new Entity("Comment");
+      commentEntity.setProperty("title", title);
+      commentEntity.setProperty("timestamp", timestamp);
+      
+      // Create a server connection to get data and put new comments to teh database.
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(commentEntity);
 
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("title", title);
-    commentEntity.setProperty("timestamp", timestamp);
-    
-    // Create a server connection to get data and put new comments to teh database.
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
-
-    // After the procedure go back to the home page.
-    response.sendRedirect("/index.html");
-
+      // After the procedure go back to the home page.
+      response.sendRedirect("/index.html");
+    }
   }
   
   /**

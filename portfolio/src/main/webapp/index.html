@@ -184,6 +184,12 @@
       
         <h1>Comment List</h1>
         
+        <form action="/data" method="GET">
+          <label for="limit">Number of comments to display (between 1 and 10):</label>
+          <input type="number" id="limit" name="limit" min="1" max="10">
+          <input type="submit" >
+        </form>
+
         <form method="POST" action="/data">
           <input type="text" name="title" />
           <br/>

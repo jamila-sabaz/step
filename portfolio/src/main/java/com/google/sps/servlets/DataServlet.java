@@ -54,7 +54,6 @@ public class DataServlet extends HttpServlet {
      
       Comment comment = new Comment(id, title, timestamp);
       comments.add(comment);
-      
     }
     Gson gson = new Gson();
 

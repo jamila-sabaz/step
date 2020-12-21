@@ -17,11 +17,17 @@ package com.google.sps.data;
  * Class representing the comment object with its properties.
  */
 public final class Comment {
-
+  /* Private variables to be used in the constructor to pass the values/input to properties. */
+  /** */
   private final long id;
   private final String title;
   private final long timestamp;
-
+  /**
+   * 
+   * @param id
+   * @param title
+   * @param timestamp
+   */
   public Comment(long id, String title, long timestamp) {
     this.id = id;
     this.title = title;

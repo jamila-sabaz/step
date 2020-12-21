@@ -82,7 +82,6 @@ public class DataServlet extends HttpServlet {
       // After the procedure go back to the home page.
       response.sendRedirect("/index.html");
   }
-  
    /**
     * @param request - Defines an object to provide client request information to a servlet.
     * @param name - Name of the requested element (can be name of teh text-box in teh form).

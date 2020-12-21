@@ -134,20 +134,20 @@ function getServerData() {
     });
 }
 
-function getNumberOfComments(){
-  var result = +document.getElementById("limit").value;
-  return result;
-}
+// function getNumberOfComments(){
+//   var result = +document.getElementById("limit").value;
+//   return result;
+// }
 /** Fetches comments from the server and adds them to the DOM. */
-function loadComments() {
-  
-  fetch('/data?limit=${result}')
+function loadComments(result) {
+  var commentListElement = [];
+  //let result= (document.getElementById("limit")).value;
+  fetch(`/data?limit=${result}`)
     .then(response => response.json())
     .then((comments) => {
-      const commentListElement = document.getElementById('comment-list');
+      commentListElement = document.getElementById('comment-list');
       comments.forEach((comment) => {
         commentListElement.appendChild(createCommentElement(comment));
-        
     })
   });
 }

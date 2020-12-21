@@ -51,9 +51,8 @@ public class DataServlet extends HttpServlet {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
-      // Private class which is supposed to act like a Comment class but was changed to be a constructor.
+     
       Comment comment = new Comment(id, title, timestamp);
-      
       comments.add(comment);
       
     }

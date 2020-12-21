@@ -9,7 +9,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body onload="loadComments()">
+  <body onload="loadComments(this.value)">
     <!-- Image with intro for aesthetics -->
     <div class="hero-image">
       <div class="hero-text">
@@ -171,22 +171,13 @@
       </div> 
 
       <center>
-        <h1>Contact Form</h1>
-        <form action="/data" method="POST">
-          <p>Please enter your full name:</p>
-          <textarea name="name-input"></textarea>
-          <br/><br/>
-          <p>Please enter your enquiry here:</p>
-          <textarea name="text-input"></textarea>
-          <br/><br/>
-          <input type="submit"/>
-        </form>	
       
         <h1>Comment List</h1>
         
-        <form action="/data" method="GET">
+        <form action="/data">
           <label for="limit">Number of comments to display (between 1 and 10):</label>
-          <input type="number" id="limit" name="limit" min="1" max="10">
+          <input type="number" id="limit" name="limit" min="1" max="10" onchange="loadComments(this.value)">
+          <br/>
           <input type="submit" >
         </form>
 
@@ -197,7 +188,6 @@
         </form>
 
         <hr/>
-
         <div id="comment-list"></div>
 
       </center>

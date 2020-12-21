@@ -23,10 +23,9 @@ public final class Comment {
   private final String title;
   private final long timestamp;
   /**
-   * 
-   * @param id
-   * @param title
-   * @param timestamp
+   * @param id - ID number to keep track of coments, so comments can have the same title/text.
+   * @param title - Content of the comment written as text.
+   * @param timestamp - A digital record of the time of occurrence of a particular event (when the comment was posted on the server.)
    */
   public Comment(long id, String title, long timestamp) {
     this.id = id;

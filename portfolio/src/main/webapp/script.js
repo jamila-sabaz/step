@@ -140,12 +140,10 @@ function getServerData() {
 // }
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments(result) {
-  var commentListElement = [];
-  //let result= (document.getElementById("limit")).value;
   fetch(`/data?limit=${result}`)
     .then(response => response.json())
     .then((comments) => {
-      commentListElement = document.getElementById('comment-list');
+      const commentListElement = document.getElementById('comment-list');
       comments.forEach((comment) => {
         commentListElement.appendChild(createCommentElement(comment));
     })
@@ -160,6 +158,18 @@ function createCommentElement(comment) {
   const titleElement = document.createElement('span');
   titleElement.innerText = comment.title;
 
+  document.getElementById("refresh").addEventListener('click', () => {
+    // Once refresh button is clicked, remove the comments from the DOM.
+    commentElement.remove();
+  });
+  
   commentElement.appendChild(titleElement);
   return commentElement;
+}
+
+/** Tells the server to delete the task. */
+function deleteComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  fetch('/delete-data', {method: 'POST', body: params});
 }

@@ -136,12 +136,13 @@ function getServerData() {
 
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
-  fetch('/data')
+  fetch('/data?limit=3')
     .then(response => response.json())
     .then((comments) => {
       const commentListElement = document.getElementById('comment-list');
       comments.forEach((comment) => {
         commentListElement.appendChild(createCommentElement(comment));
+        
     })
   });
 }

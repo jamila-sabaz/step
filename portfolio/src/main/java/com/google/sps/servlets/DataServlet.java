@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.FetchOptions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,10 +37,15 @@ import com.google.appengine.api.datastore.KeyFactory;
 /** Servlet that encapsulates some data from training exercises. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  
+  // Hard-coded value to limit number of comments on the page.
+  private int limit = 5;
+  private int count = 0;
+  // private Object lock = new Object();
   /* Do Get function to fetch and list the todo list items onto the home page*/
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
+  {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -47,13 +53,15 @@ public class DataServlet extends HttpServlet {
 
     // Private class which is supposed to act like a Comment class.
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(Integer.parseInt(getParameter(request, "limit", "")))) ) {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
       // Private class which is supposed to act like a Comment class but was changed to be a constructor.
       Comment comment = new Comment(id, title, timestamp);
+      
       comments.add(comment);
+      
     }
     Gson gson = new Gson();
 
@@ -109,4 +117,6 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
+
+  
 }

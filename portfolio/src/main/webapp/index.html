@@ -9,7 +9,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body>
+  <body onload="loadComments()">
     <!-- Image with intro for aesthetics -->
     <div class="hero-image">
       <div class="hero-text">
@@ -179,11 +179,11 @@
           <p>Please enter your enquiry here:</p>
           <textarea name="text-input"></textarea>
           <br/><br/>
-          <input type="submit">
+          <input type="submit"/>
         </form>	
       
-        <h1>Todo List</h1>
-
+        <h1>Comment List</h1>
+        
         <form method="POST" action="/data">
           <input type="text" name="title" />
           <br/>
@@ -192,7 +192,7 @@
 
         <hr/>
 
-        <ul id="comment-list"></ul>
+        <div id="comment-list"></div>
 
       </center>
       

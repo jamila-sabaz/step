@@ -146,15 +146,14 @@ function loadComments() {
   });
 }
 
-/** Creates an element that represents a comment, including its delete button. */
+/** Creates an element that represents a comment, excluding its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement('li');
   commentElement.className = 'comment';
-
+  // The variable title is the content of the comment message.
   const titleElement = document.createElement('span');
   titleElement.innerText = comment.title;
 
   commentElement.appendChild(titleElement);
-  commentElement.appendChild(deleteButtonElement);
   return commentElement;
 }

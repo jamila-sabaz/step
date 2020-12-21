@@ -35,7 +35,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /** Servlet that encapsulates some data from training exercises. */
 @WebServlet("/data")
-public final class DataServlet extends HttpServlet {
+public class DataServlet extends HttpServlet {
   /* Do Get function to fetch and list the todo list items onto the home page*/
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -91,7 +91,7 @@ public final class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
-    // After teh procedure go back to the home page.
+    // After the procedure go back to the home page.
     response.sendRedirect("/index.html");
 
   }
@@ -101,11 +101,12 @@ public final class DataServlet extends HttpServlet {
    *         was not specified by the client
    */
   
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-      String value = request.getParameter(name);
-      if (value == null) {
-        return defaultValue;
-      }
-      return value;
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) 
+  {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
     }
+    return value;
+  }
 }

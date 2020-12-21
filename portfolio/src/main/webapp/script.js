@@ -162,13 +162,19 @@ function createCommentElement(comment) {
     // Once refresh button is clicked, remove the comments from the DOM.
     commentElement.remove();
   });
+
+  document.getElementById("delete-comments").addEventListener('click', () => {
+    deleteAllComment(comment);
+    // Remove the comment from the DOM.
+    commentElement.remove();
+  });
   
   commentElement.appendChild(titleElement);
   return commentElement;
 }
 
-/** Tells the server to delete the task. */
-function deleteComment(comment) {
+/** Tells the server to delete all comments. */
+function deleteAllComment(comment) {
   const params = new URLSearchParams();
   params.append('id', comment.id);
   fetch('/delete-data', {method: 'POST', body: params});

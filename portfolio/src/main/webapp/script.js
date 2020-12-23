@@ -134,10 +134,6 @@ function getServerData() {
     });
 }
 
-// function getNumberOfComments(){
-//   var result = +document.getElementById("limit").value;
-//   return result;
-// }
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments(result) {
   fetch(`/data?limit=${result}`)

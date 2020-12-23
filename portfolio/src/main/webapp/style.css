@@ -10,30 +10,28 @@
   background-color:hsla(9, 100%, 64%, 0.5);
 }
 #about-me{
-    width: 70%;
+  width: 70%;
   margin-left:15%;
   margin-right:15%;
 }
 #bio{   
-    max-width:70%;
-    margin-left:15%;
+  max-width:70%;
+  margin-left:15%;
   margin-right:15%;
 }
 
 #projects{
-    margin-left:15%;
+  margin-left:15%;
   margin-right:15%;
   width: 70%;
   height: 1000px;
   background-color: hsla(9, 100%, 64%, 0.5);
 }
 #project-header{
-    
   width:100%;
 }
 #table{
     width: 100%;
-
     position: center; 
 }
 #randomshow{
@@ -41,7 +39,6 @@
   background-color:  rgb(255, 235, 235);
 }
 #randomfact{
-  
   height: 150px;
   background-color:  rgb(255, 235, 235);
 }
@@ -54,7 +51,6 @@
   width: 300px;
   border:2px solid rgb(59, 170, 221);
   background-color: rgb(131, 204, 238);
-  
 }
 #fact-container {
   margin-top: 20px;

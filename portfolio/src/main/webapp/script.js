@@ -136,13 +136,12 @@ function getServerData() {
 
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
-  fetch('/data?limit=3')
+  fetch(`/data?limit=${document.getElementById("limit").value}`)
     .then(response => response.json())
     .then((comments) => {
       const commentListElement = document.getElementById('comment-list');
       comments.forEach((comment) => {
         commentListElement.appendChild(createCommentElement(comment));
-        
     })
   });
 }
@@ -155,6 +154,31 @@ function createCommentElement(comment) {
   const titleElement = document.createElement('span');
   titleElement.innerText = comment.title;
 
+  document.getElementById("refresh").addEventListener('click', () => {
+    // Once refresh button is clicked, remove the comments from the DOM.
+    commentElement.remove();
+  });
+
+  document.getElementById("delete-comments").addEventListener('click', () => {
+    deleteAllComment(comment);
+    // Remove the comment from the DOM.
+    commentElement.remove();
+  });
+
   commentElement.appendChild(titleElement);
   return commentElement;
+}
+
+/** Tells the server to delete all comments. */
+function deleteAllComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  fetch('/delete-data', {method: 'POST', body: params});
+}
+
+/** Creates a map and adds it to the page. */
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 	43.238949, lng: 76.889709}, zoom: 7});
 }

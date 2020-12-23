@@ -4,31 +4,29 @@
   height: 100%;
 }
 #content {
-  width: 300px;
   color: rgb(65, 9, 9);
   width: 100%;
   background-color:hsla(9, 100%, 64%, 0.5);
 }
 #about-me{
-    width: 70%;
+  max-width:70%;
   margin-left:15%;
   margin-right:15%;
 }
 #bio{   
-    max-width:70%;
-    margin-left:15%;
+  max-width:70%;
+  margin-left:15%;
   margin-right:15%;
 }
 
 #projects{
-    margin-left:15%;
+  margin-left:15%;
   margin-right:15%;
-  width: 70%;
-  height: 1000px;
+  max-width: 70%;
+  height: 100%;
   background-color: hsla(9, 100%, 64%, 0.5);
 }
 #project-header{
-    
   width:100%;
 }
 #table{
@@ -238,4 +236,10 @@ img {vertical-align: middle;}
 
 .comment span {
   flex-grow: 1;
+}
+
+#map {
+  border: thin solid black;
+  height: 500px;
+  width: 500px;
 }

@@ -38,24 +38,29 @@ public class DataServlet extends HttpServlet {
 
   /* Do Get function to fetch and list the todo list items onto the home page*/
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
-  {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
+    
+    // Get integer input for limited number of comments.
+    int limit;
+    try {
+      limit = Integer.parseInt(getParameter(request, "limit", ""));
+    }
+    catch (NumberFormatException e) {
+      limit = 0;
+    }
     // Private class which is supposed to act like a Comment class.
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(Integer.parseInt(getParameter(request, "limit", "")))) ) {
+    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(limit))) {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
-      // Private class which is supposed to act like a Comment class but was changed to be a constructor.
+
       Comment comment = new Comment(id, title, timestamp);
-      
       comments.add(comment);
-      
     }
     Gson gson = new Gson();
 
@@ -65,8 +70,7 @@ public class DataServlet extends HttpServlet {
 
   /* Do Post function responsible for creating new tasks. */ 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
-  {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       // Method to create and send New Comment to the server.
       String title = request.getParameter("title");
       long timestamp = System.currentTimeMillis();
@@ -90,8 +94,7 @@ public class DataServlet extends HttpServlet {
    *         was not specified by the client.
     */
    /* Private function accessing the properties of the Comment-objects. */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) 
-  {
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {
       return defaultValue;

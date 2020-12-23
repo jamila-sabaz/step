@@ -18,7 +18,6 @@ package com.google.sps.data;
  */
 public final class Comment {
   /* Private variables to be used in the constructor to pass the values/input to properties. */
-  /** */
   private final long id;
   private final String title;
   private final long timestamp;

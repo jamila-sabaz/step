@@ -1,5 +1,11 @@
 #map {
   border: thin solid black;
-  height: 500px;
+  height: 100%;
   width: 500px;
+  
 }
+ html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }

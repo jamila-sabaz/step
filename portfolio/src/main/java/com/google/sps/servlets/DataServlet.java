@@ -36,18 +36,25 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  /* Do Get function to fetch and list the todo list items onto the home page*/
+  /* Do Get function to fetch and list the comments list items onto the home page*/
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
-  {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    // Get integer input for limited number of comments.
+    int limit;
+    try {
+      limit = Integer.parseInt(getParameter(request, "limit", ""));
+    }
+    catch (NumberFormatException e) {
+      limit = 0;
+    }
     // Private class which is supposed to act like a Comment class.
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(Integer.parseInt(getParameter(request, "limit", "")))) ) {
+    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(limit))) {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
@@ -61,10 +68,9 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(comments));
   }
 
-  /* Do Post function responsible for creating new tasks. */ 
+  /* Do Post function responsible for creating new comments. */ 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
-  {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       // Method to create and send New Comment to the server.
       String title = request.getParameter("title");
       long timestamp = System.currentTimeMillis();
@@ -73,23 +79,21 @@ public class DataServlet extends HttpServlet {
       commentEntity.setProperty("title", title);
       commentEntity.setProperty("timestamp", timestamp);
       
-      // Create a server connection to get data and put new comments to teh database.
+      // Create a server connection to get data and put new comments to the database.
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
 
       // After the procedure go back to the home page.
       response.sendRedirect("/index.html");
   }
-   /**
+   /** Private function accessing the properties of the Comment-objects.
     * @param request - Defines an object to provide client request information to a servlet.
     * @param name - Name of the requested element (can be name of teh text-box in teh form).
     * @param defaultValue - The value, related to the element, that was requested (could be true/false).
     * @return - The request parameter, or the default value if the parameter
    *         was not specified by the client.
     */
-   /* Private function accessing the properties of the Comment-objects. */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) 
-  {
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {
       return defaultValue;

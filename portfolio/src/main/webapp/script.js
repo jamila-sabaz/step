@@ -179,6 +179,14 @@ function deleteAllComment(comment) {
 /** Creates a map and adds it to the page. */
 function createMap() {
   const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 	43.238949, lng: 76.889709}, zoom: 7});
+    document.getElementById('map'),
+    {center: {lat: 43.238949, lng: 76.889709}, zoom: 7,
+    mapTypeId: "satellite",
+    });
+  map.setTilt(45);
+  const homeMarker = new google.maps.Marker({
+    position: {lat: 43.26027765152295,  lng: 76.94523004291469},
+    map: map,
+    title: 'My Home'
+    });
 }

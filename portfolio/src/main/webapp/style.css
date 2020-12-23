@@ -239,3 +239,10 @@ img {vertical-align: middle;}
 .comment span {
   flex-grow: 1;
 }
+
+#map {
+  border: thin solid black;
+  height: 100%;
+  width: 500px;
+  
+}

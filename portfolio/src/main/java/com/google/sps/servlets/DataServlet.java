@@ -79,21 +79,20 @@ public class DataServlet extends HttpServlet {
       commentEntity.setProperty("title", title);
       commentEntity.setProperty("timestamp", timestamp);
       
-      // Create a server connection to get data and put new comments to teh database.
+      // Create a server connection to get data and put new comments to the database.
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
 
       // After the procedure go back to the home page.
       response.sendRedirect("/index.html");
   }
-   /**
+   /** Private function accessing the properties of the Comment-objects.
     * @param request - Defines an object to provide client request information to a servlet.
     * @param name - Name of the requested element (can be name of teh text-box in teh form).
     * @param defaultValue - The value, related to the element, that was requested (could be true/false).
     * @return - The request parameter, or the default value if the parameter
    *         was not specified by the client.
     */
-   /* Private function accessing the properties of the Comment-objects. */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {

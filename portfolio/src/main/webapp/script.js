@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-
 //Create a boolean flag to note when the button for random show and random fact have been 
 //clicked so they will open on first click and close on the second click
 showHasBeenClicked = false;
 factHasBeenClicked = false;
-
+/**
+ * Adds a random tv show suggestion to the page.
+ */
 function recommendRandomShow() {
-  //options for randomiser
+  // Options for randomiser.
   const shows =
     ['The Good Place', 'Gossip Girl', 'Community', 'Emily in Paris', 'How I met Your Mother'];
     
@@ -31,6 +29,7 @@ function recommendRandomShow() {
 
   // Add it to the page.
   const showContainer = document.getElementById('tv-show-container');
+
   //check if the button has been clicked already and if yes collapse container
   if (showHasBeenClicked === true) {
     showContainer.innerText = null;
@@ -38,15 +37,17 @@ function recommendRandomShow() {
   }
   //if not show container and flag it as clicked  
   else {
+
     showContainer.innerText = show;
     showHasBeenClicked = true;
-  } 
+  }  
 }
 /**
  * Adds a random fact to the page.
  */
 function randomFact() {
-  //options for randomiser
+
+  // Options for randomiser.
     const facts = 
       ['favourite color - Purple', 'prefers dogs over cats', 'favourite ice cream flavor - strawberry', 
       'favourite singer - Lady Gaga', 'still dreams to become an astronaut', '90% of times remembers her dreams'];
@@ -56,6 +57,7 @@ function randomFact() {
 
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
+
   //check if clicked and if so show nothinhg
     if (factHasBeenClicked === true) {
       factContainer.innerText = null;
@@ -67,16 +69,17 @@ function randomFact() {
       factHasBeenClicked = true;
   }
 }
-
-//Button for 3 sections about me
+/**
+ * Button for 3 sections #about-me.
+ */
 function openSection(id) {
   var section = document.getElementById(id);
-  //check if class of the container is not w3-show (it is hide) 
-  //then add class name to show
+  // Check if class of the container is not w3-show (it is hide).
+  // Then add class name to show.
   if (section.className.indexOf("w3-show") == -1) {
     section.className += " w3-show";
   } 
-  //if it is already on show, remove w3-show class to null so it will be hidden
+  // If it is already on show, remove w3-show class to null so it will be hidden.
   else {
     section.className = section.className.replace(" w3-show", "");
   } 
@@ -84,42 +87,42 @@ function openSection(id) {
 /**
  * Slideshow 
  */
-//Using event listener check if DOM content of the page has been loaded completely 
-//only after it is loaded function showSlides is called
+// Using event listener check if DOM content of the page has been loaded completely.
+// Only after it is loaded function showSlides is called.
 document.addEventListener('DOMContentLoaded', () => {
 showSlides(0);
 });
 
-//this function makes button with arrows move to the Next and Previous slides
+// This function makes button with arrows move to the Next and Previous slides.
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
 
-//this function binds dots indicators with the slides to control them
+//This function binds dots indicators with the slides to control them.
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
 
-//this function is main, it takes initial counter and manages slides 
+// This function is main, it takes initial counter and manages slides. 
 function showSlides(n) {
-  let i; //index for 'for' loops
+  let i; // Index for 'for' loops.
   let slides = document.getElementsByClassName("mySlides");
   let dots = document.getElementsByClassName("dot");
-  //check if counter of slides is exceeding number of slider and if yes, reset slide index to 1
+  // Check if counter of slides is exceeding number of slider and if yes, reset slide index to 1.
   if (n > slides.length) {slideIndex = 1}    
-  //if counter=0 set slide index to max number of slides (length =3)
+  // If counter=0 set slide index to max number of slides (length =3).
   if (n < 1) {slideIndex = slides.length}
-    //initially all slides are hidden (show none)
+    // Initially all slides are hidden (show none).
   for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
+    slides[i].style.display = "none";  
   }
-  //and replace all dots form active to NULL to display inactive mode
+  // And replace all dots form active to NULL to display inactive mode.
   for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
+    dots[i].className = dots[i].className.replace(" active", "");
   }
-  //brings the slide back (makes it visible)
+  // Brings the slide back (makes it visible).
   slides[slideIndex-1].style.display = "block";  
-  //the dot becomes 'active' (indicator is brighter)
+  // The dot becomes 'active' (indicator is brighter).
   dots[slideIndex-1].className += " active";
 }
 

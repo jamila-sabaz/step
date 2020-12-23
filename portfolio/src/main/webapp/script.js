@@ -32,12 +32,12 @@ function recommendRandomShow() {
   // Add it to the page.
   const showContainer = document.getElementById('tv-show-container');
   //check if the button has been clicked already and if yes collapse container
-  if (showHasBeenClicked === true){
+  if (showHasBeenClicked === true) {
     showContainer.innerText = null;
     showHasBeenClicked = false;
   }
   //if not show container and flag it as clicked  
-  else{
+  else {
     showContainer.innerText = show;
     showHasBeenClicked = true;
   } 
@@ -57,12 +57,12 @@ function randomFact() {
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
   //check if clicked and if so show nothinhg
-    if (factHasBeenClicked === true){
+    if (factHasBeenClicked === true) {
       factContainer.innerText = null;
       factHasBeenClicked = false;
     }
     //else if not clicked show the container and flag as clicked
-    else{
+    else {
       factContainer.innerText = fact;
       factHasBeenClicked = true;
   }
@@ -134,10 +134,6 @@ function getServerData() {
     });
 }
 
-// function getNumberOfComments(){
-//   var result = +document.getElementById("limit").value;
-//   return result;
-// }
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
   fetch(`/data?limit=${document.getElementById("limit").value}`)
@@ -186,9 +182,4 @@ function createMap() {
       document.getElementById('map'),
       //{center: {lat: 	43.238949, lng: 76.889709}, zoom: 16});
       {center: {lat: 37.422, lng: -122.084}, zoom: 16});
-}
-
-function loadStuff(value){
-  createMap();
-  loadComments(value);
 }

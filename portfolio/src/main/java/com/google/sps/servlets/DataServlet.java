@@ -49,8 +49,7 @@ public class DataServlet extends HttpServlet {
     try {
       limit = Integer.parseInt(getParameter(request, "limit", ""));
     }
-    catch (NumberFormatException e)
-    {
+    catch (NumberFormatException e) {
       limit = 0;
     }
     // Private class which is supposed to act like a Comment class.

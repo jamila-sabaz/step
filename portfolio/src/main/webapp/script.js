@@ -29,13 +29,15 @@ function recommendRandomShow() {
 
   // Add it to the page.
   const showContainer = document.getElementById('tv-show-container');
-  // Check if the button has been clicked already and if yes collapse container.
-  if (showHasBeenClicked === true){
+
+  //check if the button has been clicked already and if yes collapse container
+  if (showHasBeenClicked === true) {
     showContainer.innerText = null;
     showHasBeenClicked = false;
   }
-  // If not show container and flag it as clicked.
-  else{
+  //if not show container and flag it as clicked  
+  else {
+
     showContainer.innerText = show;
     showHasBeenClicked = true;
   }  
@@ -55,15 +57,16 @@ function randomFact() {
 
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
-  // Check if clicked and if so show nothinhg.
-  if (factHasBeenClicked === true){
-    factContainer.innerText = null;
-    factHasBeenClicked = false;
-  }
-  // Else if not clicked show the container and flag as clicked.
-  else{
-    factContainer.innerText = fact;
-    factHasBeenClicked = true;
+
+  //check if clicked and if so show nothinhg
+    if (factHasBeenClicked === true) {
+      factContainer.innerText = null;
+      factHasBeenClicked = false;
+    }
+    //else if not clicked show the container and flag as clicked
+    else {
+      factContainer.innerText = fact;
+      factHasBeenClicked = true;
   }
 }
 /**
@@ -132,5 +135,47 @@ function getServerData() {
     .then((myJSON) => {
       document.getElementById('data-container').innerText = myJSON;
     });
+}
+
+/** Fetches comments from the server and adds them to the DOM. */
+function loadComments() {
+  fetch(`/data?limit=${document.getElementById("limit").value}`)
+    .then(response => response.json())
+    .then((comments) => {
+      const commentListElement = document.getElementById('comment-list');
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+    })
+  });
+}
+
+/** Creates an element that represents a comment, excluding its delete button. */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
+  // The variable title is the content of the comment message.
+  const titleElement = document.createElement('span');
+  titleElement.innerText = comment.title;
+
+  document.getElementById("refresh").addEventListener('click', () => {
+    // Once refresh button is clicked, remove the comments from the DOM.
+    commentElement.remove();
+  });
+
+  document.getElementById("delete-comments").addEventListener('click', () => {
+    deleteAllComment(comment);
+    // Remove the comment from the DOM.
+    commentElement.remove();
+  });
+  
+  commentElement.appendChild(titleElement);
+  return commentElement;
+}
+
+/** Tells the server to delete all comments. */
+function deleteAllComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  fetch('/delete-data', {method: 'POST', body: params});
 }
 

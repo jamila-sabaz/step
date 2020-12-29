@@ -180,13 +180,44 @@ function deleteAllComment(comment) {
 function createMap() {
   const map = new google.maps.Map(
     document.getElementById('map'),
-    {center: {lat: 43.238949, lng: 76.889709}, zoom: 7,
+    {center: {lat: 43.238949, lng: 76.889709}, zoom: 5,
     mapTypeId: "satellite",
     });
   map.setTilt(45);
-  const homeMarker = new google.maps.Marker({
-    position: {lat: 43.26027765152295,  lng: 76.94523004291469},
+  // Markers for sightseeing places.
+  const dunes = new google.maps.Marker({
+    position: {lat: 43.8616417,  lng: 78.570115},
     map: map,
-    title: 'My Home'
+    title: 'Singing Sand Dunes'
     });
+  const lakes = new google.maps.Marker({
+    position: {lat: 42.9467203,  lng: 77.6307018},
+    map: map,
+    title: 'Kolsai Lakes'
+    });
+  const canyon = new google.maps.Marker({
+    position: {lat: 43.3512537,  lng: 79.0791416},
+    map: map,
+    title: 'Charyn Canyon'
+    });
+  const lakeKaindy = new google.maps.Marker({
+    position: {lat: 42.9844278,  lng: 78.4628638},
+    map: map,
+    title: 'Lake with trees growing upside down.'
+    });
+  // Info Windows for the markers.
+  const dunesInfoWindow =
+      new google.maps.InfoWindow({content: 'This is Singing Sand Dunes.'});
+  dunesInfoWindow.open(map, dunes);
+
+  const lakesInfoWindow =
+      new google.maps.InfoWindow({content: 'This is Kolsai Lakes, often referred to as "Pearls of Tien Shan".'});
+  lakesInfoWindow.open(map, lakes);
+
+  const canyonInfoWindow =
+      new google.maps.InfoWindow({content: 'This is Charyn Canyon.'});
+  canyonInfoWindow.open(map, canyon);
+  const lakeKaindyInfoWindow =
+      new google.maps.InfoWindow({content: 'This is Lake Kaindy, a lake with trees growing upside down.'});
+  lakeKaindyInfoWindow.open(map, lakeKaindy);
 }

@@ -176,48 +176,96 @@ function deleteAllComment(comment) {
   fetch('/delete-data', {method: 'POST', body: params});
 }
 
-/** Creates a map and adds it to the page. */
+let map;
+
+/* Editable marker that displays when a user clicks in the map. */
+let editMarker;
+
+/** Creates a map that allows users to add markers. */
 function createMap() {
-  const map = new google.maps.Map(
-    document.getElementById('map'),
-    {center: {lat: 43.238949, lng: 76.889709}, zoom: 5,
-    mapTypeId: "satellite",
-    });
-  map.setTilt(45);
-  // Markers for sightseeing places.
-  const dunes = new google.maps.Marker({
-    position: {lat: 43.8616417,  lng: 78.570115},
-    map: map,
-    title: 'Singing Sand Dunes'
-    });
-  const lakes = new google.maps.Marker({
-    position: {lat: 42.9467203,  lng: 77.6307018},
-    map: map,
-    title: 'Kolsai Lakes'
-    });
-  const canyon = new google.maps.Marker({
-    position: {lat: 43.3512537,  lng: 79.0791416},
-    map: map,
-    title: 'Charyn Canyon'
-    });
-  const lakeKaindy = new google.maps.Marker({
-    position: {lat: 42.9844278,  lng: 78.4628638},
-    map: map,
-    title: 'Lake with trees growing upside down.'
-    });
-  // Info Windows for the markers.
-  const dunesInfoWindow =
-      new google.maps.InfoWindow({content: 'This is Singing Sand Dunes.'});
-  dunesInfoWindow.open(map, dunes);
+  map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: -35.0004451, lng: 138.3309724}, zoom: 7});
 
-  const lakesInfoWindow =
-      new google.maps.InfoWindow({content: 'This is Kolsai Lakes, often referred to as "Pearls of Tien Shan".'});
-  lakesInfoWindow.open(map, lakes);
+  // When the user clicks in the map, show a marker with a text box the user can
+  // edit.
+  map.addListener('click', (event) => {
+    createMarkerForEdit(event.latLng.lat(), event.latLng.lng());
+  });
 
-  const canyonInfoWindow =
-      new google.maps.InfoWindow({content: 'This is Charyn Canyon.'});
-  canyonInfoWindow.open(map, canyon);
-  const lakeKaindyInfoWindow =
-      new google.maps.InfoWindow({content: 'This is Lake Kaindy, a lake with trees growing upside down.'});
-  lakeKaindyInfoWindow.open(map, lakeKaindy);
+  fetchMarkers();
+}
+
+/** Fetches markers from the backend and adds them to the map. */
+function fetchMarkers() {
+  fetch('/markers').then(response => response.json()).then((markers) => {
+    markers.forEach(
+        (marker) => {
+            createMarkerForDisplay(marker.lat, marker.lng, marker.content)});
+  });
+}
+
+/** Creates a marker that shows a read-only info window when clicked. */
+function createMarkerForDisplay(lat, lng, content) {
+  const marker =
+      new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+
+  const infoWindow = new google.maps.InfoWindow({content: content});
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
+  });
+}
+
+/** Sends a marker to the backend for saving. */
+function postMarker(lat, lng, content) {
+  const params = new URLSearchParams();
+  params.append('lat', lat);
+  params.append('lng', lng);
+  params.append('content', content);
+
+  fetch('/markers', {method: 'POST', body: params});
+}
+
+/** Creates a marker that shows a textbox the user can edit. */
+function createMarkerForEdit(lat, lng) {
+  // If we're already showing an editable marker, then remove it.
+  if (editMarker) {
+    editMarker.setMap(null);
+  }
+
+  editMarker =
+      new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+
+  const infoWindow =
+      new google.maps.InfoWindow({content: buildInfoWindowInput(lat, lng)});
+
+  // When the user closes the editable info window, remove the marker.
+  google.maps.event.addListener(infoWindow, 'closeclick', () => {
+    editMarker.setMap(null);
+  });
+
+  infoWindow.open(map, editMarker);
+}
+
+/**
+ * Builds and returns HTML elements that show an editable textbox and a submit
+ * button.
+ */
+function buildInfoWindowInput(lat, lng) {
+  const textBox = document.createElement('textarea');
+  const button = document.createElement('button');
+  button.appendChild(document.createTextNode('Submit'));
+
+  button.onclick = () => {
+    postMarker(lat, lng, textBox.value);
+    createMarkerForDisplay(lat, lng, textBox.value);
+    editMarker.setMap(null);
+  };
+
+  const containerDiv = document.createElement('div');
+  containerDiv.appendChild(textBox);
+  containerDiv.appendChild(document.createElement('br'));
+  containerDiv.appendChild(button);
+
+  return containerDiv;
 }

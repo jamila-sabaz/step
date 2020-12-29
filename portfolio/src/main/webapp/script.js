@@ -167,7 +167,7 @@ function createCommentElement(comment) {
     // Remove the comment from the DOM.
     commentElement.remove();
   });
-  
+
   commentElement.appendChild(titleElement);
   return commentElement;
 }
@@ -178,4 +178,3 @@ function deleteAllComment(comment) {
   params.append('id', comment.id);
   fetch('/delete-data', {method: 'POST', body: params});
 }
-

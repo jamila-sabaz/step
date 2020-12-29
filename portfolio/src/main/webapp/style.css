@@ -8,42 +8,44 @@
   width: 100%;
   background-color:hsla(9, 100%, 64%, 0.5);
 }
-#about-me{
-  max-width:70%;
+
+#about-me {
+  width: 70%;
   margin-left:15%;
   margin-right:15%;
 }
-#bio{   
+
+#bio {   
   max-width:70%;
   margin-left:15%;
   margin-right:15%;
 }
 
-#projects{
+#projects {
   margin-left:15%;
   margin-right:15%;
   max-width: 70%;
   height: 100%;
   background-color: hsla(9, 100%, 64%, 0.5);
 }
-#project-header{
+
+#project-header {
   width:100%;
 }
-#table{
-    width: 100%;
+#table {
+  width: 100%;
+  position: center; 
+}
+#randomshow {
+  height: 150px;
+  background-color:  rgb(255, 235, 235);
+}
 
-    position: center; 
-}
-#randomshow{
+#randomfact {
   height: 150px;
   background-color:  rgb(255, 235, 235);
 }
-#randomfact{
-  
-  height: 150px;
-  background-color:  rgb(255, 235, 235);
-}
-#buttons-container{
+#buttons-container {
   margin-left:15%;
   margin-right:15%;
 }
@@ -52,7 +54,6 @@
   width: 300px;
   border:2px solid rgb(59, 170, 221);
   background-color: rgb(131, 204, 238);
-  
 }
 #fact-container {
   margin-top: 20px;

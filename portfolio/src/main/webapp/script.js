@@ -336,6 +336,6 @@ function createsentScoreElement(sentScore) {
     sentScoreElement.remove();
   });
 
-  sentScoreElement.appendChild(titleElement);
+  sentScoreElement.appendChild(messageElement);
   return sentScoreElement;
 }

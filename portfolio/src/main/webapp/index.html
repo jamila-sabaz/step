@@ -10,7 +10,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABbDCq1phJn7qVnqbhy7MgjDG0x8yxOKE"></script>
   </head>
 
-  <body onload="loadComments();loadSentScores(); createMap(); ">
+  <body onload="loadComments(); loadSentScores(); createMap(); ">
     
     <p>Click here to see a login status:</p>
     <button onclick="getLoginStatusUsingAsyncAwait()">Fetch a login status!</button>
@@ -179,12 +179,10 @@
 
       <center>
         <h1>Comment List</h1>
-
         <form action="/data">
           <label for="limit">Number of comments to display (between 1 and 10):</label>
           <input type="number" id="limit" name="limit" min="1" max="10">
           <br/>
-
           <button type="button" id = "refresh" onclick="loadComments()"> Click to Refresh! </button>
         </form>
 
@@ -193,33 +191,26 @@
           <br/>
           <button>Submit</button>
         </form>
-
         <hr/>
         <div id="comment-list"></div>
-
         <button type="button" id="delete-comments">Click Here to Delete Comments!</button>
 
         <h1>Favorite Places in Adelaide!</h1>
         <div id="map"></div>
         <p>Click in the map to show me your favorite restaurants and cafes. </p>
       
-        
         <h1>Sentiment Analysis</h1>
         <p>Type a message and click submit to analyze its sentiment:</p>
-
         <form method="POST" action="/sentiment">
-          <textarea name="message"></textarea>
+          <input type="text" name="message" />
           <br/>
-          
           <button>Submit</button>
-          
+        </form>
           <hr/>
           <div id="sentScore-list"></div>
-
           <button type="button" id = "refresh-score" onclick="loadSentScores()"> Click to Refresh! </button>
           <button type="button" id="delete-sentScores">Click Here to Delete Scores!</button>
-        </form>
-      
+        
       </center>
       
     </div>

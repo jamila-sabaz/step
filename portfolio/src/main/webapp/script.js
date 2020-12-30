@@ -134,7 +134,7 @@ function getServerData() {
     });
 }
 
-/** Fetches comments from the server and adds them to the DOM. */
+/** Fetches Comments from the server and adds them to the DOM. */
 function loadComments() {
   fetch(`/data?limit=${document.getElementById("limit").value}`)
     .then(response => response.json())
@@ -303,4 +303,39 @@ function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
   return liElement;
+}
+
+/** Fetches sentimental scores from the server and adds them to the DOM. */
+function loadSentScores() {
+  fetch(`/sentiment`)
+    .then(response => response.json())
+    .then((sentScores) => {
+      const sentScoreListElement = document.getElementById('sentScore-list');
+      sentScores.forEach((sentScore) => {
+        sentScoreListElement.appendChild(createsentScoreElement(sentScore));
+    })
+  });
+}
+
+/** Creates an element that represents a sentScore, excluding its delete button. */
+function createsentScoreElement(sentScore) {
+  const sentScoreElement = document.createElement('li');
+  sentScoreElement.className = 'sentScore';
+  // The variable title is the content of the sentScore message.
+  const messageElement = document.createElement('span');
+  messageElement.innerText = sentScore.message;
+
+  document.getElementById("refresh-score").addEventListener('click', () => {
+    // Once refresh button is clicked, remove the sentScores from the DOM.
+    sentScoreElement.remove();
+  });
+
+  document.getElementById("delete-sentScores").addEventListener('click', () => {
+    deleteAllsentScore(sentScore);
+    // Remove the sentScore from the DOM.
+    sentScoreElement.remove();
+  });
+
+  sentScoreElement.appendChild(titleElement);
+  return sentScoreElement;
 }

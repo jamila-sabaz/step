@@ -10,7 +10,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABbDCq1phJn7qVnqbhy7MgjDG0x8yxOKE"></script>
   </head>
 
-  <body onload="loadComments(); createMap(); ">
+  <body onload="loadComments();loadSentScores(); createMap(); ">
     
     <p>Click here to see a login status:</p>
     <button onclick="getLoginStatusUsingAsyncAwait()">Fetch a login status!</button>
@@ -185,7 +185,7 @@
           <input type="number" id="limit" name="limit" min="1" max="10">
           <br/>
 
-          <button type="button" id = "refresh" onclick="loadComments((document.getElementById('limit')).value)"> Click to Refresh! </button>
+          <button type="button" id = "refresh" onclick="loadComments()"> Click to Refresh! </button>
         </form>
 
         <form method="POST" action="/data">
@@ -203,13 +203,21 @@
         <div id="map"></div>
         <p>Click in the map to show me your favorite restaurants and cafes. </p>
       
+        
         <h1>Sentiment Analysis</h1>
         <p>Type a message and click submit to analyze its sentiment:</p>
 
         <form method="POST" action="/sentiment">
           <textarea name="message"></textarea>
           <br/>
+          
           <button>Submit</button>
+          
+          <hr/>
+          <div id="sentScore-list"></div>
+
+          <button type="button" id = "refresh-score" onclick="loadSentScores()"> Click to Refresh! </button>
+          <button type="button" id="delete-sentScores">Click Here to Delete Scores!</button>
         </form>
       
       </center>

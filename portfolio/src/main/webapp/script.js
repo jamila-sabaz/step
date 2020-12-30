@@ -246,7 +246,6 @@ function createMarkerForEdit(lat, lng) {
 
   infoWindow.open(map, editMarker);
 }
-
 /**
  * Builds and returns HTML elements that show an editable textbox and a submit
  * button.
@@ -268,39 +267,4 @@ function buildInfoWindowInput(lat, lng) {
   containerDiv.appendChild(button);
 
   return containerDiv;
-}
-
-async function getLoginStatusUsingAsyncAwait() {
-
-  var section = document.getElementById('login-container');
-
-  fetch('/login').then(response => response.json()).then((status) => {
-    // status is an object, not a string, so we have to
-    // reference its fields to create HTML content
-
-    const statusListElement = document.getElementById('login-container');
-    statusListElement.innerHTML = '';
-    // If logged in show the container.
-    if (status.userEmail) {
-      section.className += " w3-show";
-      statusListElement.appendChild(
-          createListElement('Hello ' + status.userEmail +'!'));
-      statusListElement.appendChild(
-          createListElement('Logout: ' + status.logoutUrl));
-    }
-    // If not logged in display link to login page.
-    else {
-      statusListElement.appendChild(
-        createListElement('Hello stranger.'));
-      section.className = section.className.replace(" w3-show", "");
-      document.getElementById('login-link-container').className += " w3-show";
-    }
-  });
-}
-
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
 }

@@ -321,9 +321,9 @@ function loadSentScores() {
 function createsentScoreElement(sentScore) {
   const sentScoreElement = document.createElement('li');
   sentScoreElement.className = 'sentScore';
-  // The variable title is the content of the sentScore message.
+  // The variable message is the content of the sentScore message.
   const messageElement = document.createElement('span');
-  messageElement.innerText = sentScore.message;
+  messageElement.innerText = sentScore.message + " Score: " + sentScore.score;
 
   document.getElementById("refresh-score").addEventListener('click', () => {
     // Once refresh button is clicked, remove the sentScores from the DOM.
@@ -337,5 +337,6 @@ function createsentScoreElement(sentScore) {
   });
 
   sentScoreElement.appendChild(messageElement);
+  
   return sentScoreElement;
 }

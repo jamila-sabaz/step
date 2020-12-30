@@ -91,19 +91,4 @@ public class SentimentAnalysisServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(SentScores));
   }
-     /**
-    * @param request - Defines an object to provide client request information to a servlet.
-    * @param name - Name of the requested element (can be name of teh text-box in teh form).
-    * @param defaultValue - The value, related to the element, that was requested (could be true/false).
-    * @return - The request parameter, or the default value if the parameter
-   *         was not specified by the client.
-    */
-   /* Private function accessing the properties of the Comment-objects. */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
-  }
 }

@@ -1,3 +1,4 @@
+
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -177,7 +178,6 @@ function deleteAllComment(comment) {
 }
 
 let map;
-
 /* Editable marker that displays when a user clicks in the map. */
 let editMarker;
 
@@ -198,10 +198,12 @@ function createMap() {
 
 /** Fetches markers from the backend and adds them to the map. */
 function fetchMarkers() {
-  fetch('/markers').then(response => response.json()).then((markers) => {
-    markers.forEach(
+  fetch('/markers')
+    .then(response => response.json())
+    .then((markers) => {
+      markers.forEach(
         (marker) => {
-            createMarkerForDisplay(marker.lat, marker.lng, marker.content)});
+          createMarkerForDisplay(marker.lat, marker.lng, marker.content)});
   });
 }
 
@@ -312,31 +314,24 @@ function loadSentScores() {
     .then((sentScores) => {
       const sentScoreListElement = document.getElementById('sentScore-list');
       sentScores.forEach((sentScore) => {
-        sentScoreListElement.appendChild(createsentScoreElement(sentScore));
+        sentScoreListElement.appendChild(createSentScoreElement(sentScore));
     })
   });
 }
 
 /** Creates an element that represents a sentScore, excluding its delete button. */
-function createsentScoreElement(sentScore) {
+function createSentScoreElement(sentScore) {
   const sentScoreElement = document.createElement('li');
   sentScoreElement.className = 'sentScore';
   // The variable message is the content of the sentScore message.
   const messageElement = document.createElement('span');
-  messageElement.innerText = sentScore.message + " Score: " + sentScore.score;
+  messageElement.innerText = sentScore.message + " Score: " + (sentScore.score).toFixed(2);
 
   document.getElementById("refresh-score").addEventListener('click', () => {
     // Once refresh button is clicked, remove the sentScores from the DOM.
     sentScoreElement.remove();
   });
 
-  document.getElementById("delete-sentScores").addEventListener('click', () => {
-    deleteAllsentScore(sentScore);
-    // Remove the sentScore from the DOM.
-    sentScoreElement.remove();
-  });
-
   sentScoreElement.appendChild(messageElement);
-  
   return sentScoreElement;
 }

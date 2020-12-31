@@ -19,13 +19,15 @@ package com.google.sps.data;
 public final class SentScore {
   /* Private variables to be used in the constructor to pass the values/input to properties. */
   private final String message;
-  private final long score;
+  private final double score;
+  
   /**
    * @param message - Content of the comment written as text.
-   * @param score - A digital record of the time of occurrence of a particular event (when the comment was posted on the server.)
+   * @param score  - A digital record of the time of occurrence of a particular
+   *                event (when the comment was posted on the server.)
    */
-  public SentScore( String message, long score) {
-    
+  public SentScore(String message, double score) {
+
     this.message = message;
     this.score = score;
   }

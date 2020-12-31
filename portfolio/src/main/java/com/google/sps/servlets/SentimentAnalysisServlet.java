@@ -46,27 +46,19 @@ public class SentimentAnalysisServlet extends HttpServlet {
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    long score = (long) sentiment.getScore();
+    double score = (double) sentiment.getScore();
     languageService.close();
 
-    // Output the sentiment score as HTML.
-    // A real project would probably store the score alongside the content.
-    // response.setContentType("text/html;");
-    // response.getWriter().println("<h1>Sentiment Analysis</h1>");
-    // response.getWriter().println("<p>You entered: " + message + "</p>");
-    // response.getWriter().println("<p>Sentiment analysis score: " + score + "</p>");
-    // response.getWriter().println("<p><a href=\"/\">Back</a></p>");
+    Entity sentScoreEntity = new Entity("SentScore");
+    sentScoreEntity.setProperty("message", message);
+    sentScoreEntity.setProperty("score", score);
+    
+    // Create a server connection to get data and put new sentScores to teh database.
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(sentScoreEntity);
 
-      Entity sentScoreEntity = new Entity("SentScore");
-      sentScoreEntity.setProperty("message", message);
-      sentScoreEntity.setProperty("score", score);
-      
-      // Create a server connection to get data and put new sentScores to teh database.
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      datastore.put(sentScoreEntity);
-
-      // After the procedure go back to the home page.
-      response.sendRedirect("/index.html");
+    // After the procedure go back to the home page.
+    response.sendRedirect("/index.html");
   }
 
   /* Do Get function to fetch and list the todo list items onto the home page*/
@@ -81,7 +73,7 @@ public class SentimentAnalysisServlet extends HttpServlet {
     List<SentScore> SentScores = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       String message = (String) entity.getProperty("message");
-      long score = (long) entity.getProperty("score");
+      double score = (double) entity.getProperty("score");
 
       SentScore SentScore = new SentScore( message, score);
       SentScores.add(SentScore);

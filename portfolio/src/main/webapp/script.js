@@ -322,10 +322,10 @@ function loadSentScores() {
 /** Creates an element that represents a sentScore, excluding its delete button. */
 function createSentScoreElement(sentScore) {
   const sentScoreElement = document.createElement('li');
-  sentScoreElement.className = 'sentScore';
+  sentScoreElement.className = 'SentScore';
   // The variable message is the content of the sentScore message.
   const messageElement = document.createElement('span');
-  messageElement.innerText = sentScore.message + " Score: " + (sentScore.score).toFixed(2);
+  messageElement.innerText = sentScore.message + " Score: " + sentScore.score.toFixed(2);
 
   document.getElementById("refresh-score").addEventListener('click', () => {
     // Once refresh button is clicked, remove the sentScores from the DOM.

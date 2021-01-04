@@ -19,7 +19,6 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.LanguageServiceClient;
@@ -46,7 +45,7 @@ public class SentimentAnalysisServlet extends HttpServlet {
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    double score = (double) sentiment.getScore();
+    float score = sentiment.getScore();
     languageService.close();
 
     Entity sentScoreEntity = new Entity("SentScore");
@@ -64,7 +63,7 @@ public class SentimentAnalysisServlet extends HttpServlet {
   /* Do Get function to fetch and list the todo list items onto the home page*/
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("SentScore").addSort("score", SortDirection.DESCENDING);
+    Query query = new Query("SentScore");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);

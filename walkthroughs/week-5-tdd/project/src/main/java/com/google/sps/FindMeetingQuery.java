@@ -22,19 +22,26 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class FindMeetingQuery {
-  private Collection<TimeRange> possibleTimes ;//= new LinkedList<String>() ;
+  
+  private Collection<TimeRange> possibleTimes ;
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     //throw new UnsupportedOperationException("TODO: Implement this method.");
     // If no attndees
-    if (request.getAttendees() == null && events == null) {
+    if ((request.getAttendees() == null ) && (events == null) ){
+      possibleTimes.add(TimeRange.WHOLE_DAY);
+      return possibleTimes;
+    }
+    //no conflicts
+    else if ((request.getAttendees() != null) && (events == null)) {
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
     //if no events
-    if (events == null){
-      possibleTimes.add(TimeRange.WHOLE_DAY);
-      return possibleTimes;
-    }
+    // else if (events == null){
+    //   possibleTimes.add(TimeRange.WHOLE_DAY);
+    //   return possibleTimes;
+    // }
     
     int min_duration = (int) request.getDuration();
     // Initialize min_time to current time

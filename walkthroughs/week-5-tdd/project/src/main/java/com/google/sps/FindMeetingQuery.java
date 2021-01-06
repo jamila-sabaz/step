@@ -15,9 +15,50 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    //throw new UnsupportedOperationException("TODO: Implement this method.");
+    Collection<TimeRange> possibleTimes ;//= new LinkedList<String>() ;
+    // Collection <String> peopleNeeded = request.getAttendees();
+    // Collection <String> allPeople = events.getAttendees();
+
+    if (events == null){
+      possibleTimes.add( TimeRange.WHOLE_DAY);
+      return possibleTimes;
+    }
+    
+
+        List<List<Integer>> res = new ArrayList<>();
+        // Convert to array.
+        //Object arr[] = events.toArray();
+        int min_duration = (int) request.getDuration();
+        // Initialize min_time to current time
+        int curr_time = TimeRange.START_OF_DAY;
+
+        // Sort array by start time
+       // Arrays.sort(event.getWhen(), Comparator.comparingInt(a -> a[0]));
+
+        // Loop through all intervals
+        for(Event event: events){
+            int st_tm = event.getWhen().start();
+            int end_tm = event.getWhen().end();
+
+            if(curr_time < st_tm ){  //if current time is < start time of the interval
+                if(st_tm - curr_time >= min_duration){  //if the time between the 2 is greater than min_duration
+                    possibleTimes.add(events.asList(curr_time, st_tm));
+                }
+                curr_time = end_tm; // Update end time to be current_time 
+            } else {
+                curr_time = Math.max(end_tm, curr_time); // For overlapping intervals, make sure you tax the max between current time and end time
+            }
+        }
+        return possibleTimes;
+
+    
   }
 }

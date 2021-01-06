@@ -15,6 +15,7 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -23,11 +24,15 @@ import java.util.List;
 public final class FindMeetingQuery {
   private Collection<TimeRange> possibleTimes ;//= new LinkedList<String>() ;
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    
-    
- 
+    //throw new UnsupportedOperationException("TODO: Implement this method.");
+    // If no attndees
+    if (request.getAttendees() == null && events == null) {
+      possibleTimes.add(TimeRange.WHOLE_DAY);
+      return possibleTimes;
+    }
+    //if no events
     if (events == null){
-      possibleTimes.add( TimeRange.WHOLE_DAY);
+      possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
     
@@ -36,7 +41,7 @@ public final class FindMeetingQuery {
     int curr_time = TimeRange.START_OF_DAY;
 
     // Sort array by start time
-    // Arrays.sort(event.getWhen(), Comparator.comparingInt(a -> a[0]));
+    //Collections.sort(events);
 
     // Loop through all intervals
     for(Event event: events){
@@ -56,7 +61,12 @@ public final class FindMeetingQuery {
         curr_time = Math.max(end_tm, curr_time); // For overlapping intervals, make sure you tax the max between current time and end time
       }
     }
-    return possibleTimes;
+
+    if (possibleTimes==null){
+      return Arrays.asList();
+    }
+    else
+      return possibleTimes;
 
     
   }

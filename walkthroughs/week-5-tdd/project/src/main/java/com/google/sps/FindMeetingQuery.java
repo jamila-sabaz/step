@@ -22,26 +22,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class FindMeetingQuery {
-  
-  private Collection<TimeRange> possibleTimes ;
+
+  private static final Collection<Event> NO_EVENTS = Collections.emptySet();
+  private static final Collection<String> NO_ATTENDEES = Collections.emptySet();
 
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    //throw new UnsupportedOperationException("TODO: Implement this method.");
+
+    Collection<TimeRange> possibleTimes = new ArrayList<>();
     // If no attndees
-    if ((request.getAttendees() == null ) && (events == null) ){
+    if ((request.getAttendees() != NO_ATTENDEES) && (events == NO_EVENTS)) {
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
-    //no conflicts
-    else if ((request.getAttendees() != null) && (events == null)) {
-      possibleTimes.add(TimeRange.WHOLE_DAY);
-      return possibleTimes;
-    }
-    //if no events
-    // else if (events == null){
-    //   possibleTimes.add(TimeRange.WHOLE_DAY);
-    //   return possibleTimes;
-    // }
     
     int min_duration = (int) request.getDuration();
     // Initialize min_time to current time

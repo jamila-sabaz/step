@@ -45,7 +45,7 @@ public final class GreeterTest {
 
     String greeting = greeter.greet(" ^%$@*9344  Ada!%#@   ");
 
-    // Whitespace should be trimmed
+    // Random symbols should be trimmed
     Assert.assertEquals("Hello Ada", greeting);
   }
 }

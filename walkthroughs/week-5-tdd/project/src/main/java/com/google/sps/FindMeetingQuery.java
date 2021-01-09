@@ -23,50 +23,99 @@ import java.util.List;
 
 public final class FindMeetingQuery {
 
-  private static final Collection<Event> NO_EVENTS = Collections.emptySet();
-  private static final Collection<String> NO_ATTENDEES = Collections.emptySet();
-
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
+    // Convert collection of events into an arraylist.
+    ArrayList<Event> eventList = new ArrayList<>(events);
+    // Initialise result variable. 
     Collection<TimeRange> possibleTimes = new ArrayList<>();
-    // If no attndees
-    if ((request.getAttendees() != NO_ATTENDEES) && (events == NO_EVENTS)) {
+
+    // Initialise variables for no events and no attendees.
+    Collection<Event> NO_EVENTS = Collections.emptySet();
+    Collection<String> NO_ATTENDEES = Collections.emptySet();
+    
+    // Special case: duration is longer than a day. No option returned.
+    if (request.getDuration() >  TimeRange.WHOLE_DAY.duration() ) {
+      return possibleTimes; // Empty set.
+    }
+    // Special case: no attendees. Return the whole day.
+    if (request.getAttendees() == NO_ATTENDEES ) {
+      possibleTimes.add(TimeRange.WHOLE_DAY);
+      return possibleTimes;
+    }
+    // Special case: no events on the day. Return the whole day.
+    if ( (events == NO_EVENTS)) {
+      possibleTimes.add(TimeRange.WHOLE_DAY);
+      return possibleTimes;
+    }
+    // Special case: if the only events attendee is not the one requesting. ignore them.
+    // Initialise counter to check how many events don't have requested attendees.
+    int count = 0 ;
+    for ( int i=0; i< events.size(); i++){
+      // If the requested attendees list doesn't contain event attendees increment count.
+      if ( request.getAttendees() .containsAll( (eventList.get(i).getAttendees() )) == false ) {
+        count ++; 
+      }
+    }
+    // Check if counted number is same as number of events.
+    if (count == events.size()){
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
     
-    int min_duration = (int) request.getDuration();
-    // Initialize min_time to current time
-    int curr_time = TimeRange.START_OF_DAY;
+    // Variable for the merged events for nested and overlapping cases.
+    List<TimeRange> merged = new ArrayList<TimeRange>();
+    // Previous event variable.
+    TimeRange previous = eventList.get(0).getWhen();
+    
+    // Iterate through events to find overlaps to merge them.
+    for(int i=1;i<events.size();i++){
+      TimeRange current = eventList.get(i).getWhen();
 
-    // Sort array by start time
-    //Collections.sort(events);
-
-    // Loop through all intervals
-    for(Event event: events){
-      int st_tm = event.getWhen().start();
-      int end_tm = event.getWhen().end();
-
-      if(curr_time < st_tm ){  //if current time is < start time of the interval
-        if(st_tm - curr_time > min_duration){  //if the time between the 2 is greater than min_duration
-          possibleTimes.add(TimeRange.fromStartEnd(curr_time, st_tm, true));
-        }
-        if(st_tm - curr_time == min_duration){  //if the time between the 2 is greater than min_duration
-          possibleTimes.add(TimeRange.fromStartEnd(curr_time, st_tm, false));
-        }
-        curr_time = end_tm; // Update end time to be current_time 
-      } 
-      else {
-        curr_time = Math.max(end_tm, curr_time); // For overlapping intervals, make sure you tax the max between current time and end time
+      if(previous.end() >= current.start()){
+        // New updated event interval covering both events.
+        TimeRange newTimeOfEvent =  TimeRange.fromStartEnd ( Math.min(previous.start(), current.start() ), Math.max( previous.end(), current.end() ),  false );
+        previous = newTimeOfEvent;
+      } else {
+        merged.add(previous);
+        previous = current;
       }
     }
+    merged.add(previous);  
 
-    if (possibleTimes==null){
-      return Arrays.asList();
+    // Now find intervals between the meetings.
+    List<TimeRange> gaps = new ArrayList<>();
+    // Avoid same name of the variables.
+    TimeRange previous2 = merged.get(0);
+
+    TimeRange current2 = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.START_OF_DAY, false);
+
+    // Compare the first event with the start of the day.
+    if (previous2.start()!=current2.start()){
+      // If there is space between start of the day and the first meeting add the interval.
+      gaps.add(TimeRange.fromStartEnd( current2.start(), previous2.start(),false));
     }
-    else
-      return possibleTimes;
 
-    
+    for(int i=1; i<merged.size(); i++){
+      // Assign current event to the second event (index 1).
+      current2 = merged.get(i);
+      // Add interval.
+      TimeRange gapInterval =  TimeRange.fromStartEnd(  previous2.end(),current2.start(),false);
+      
+      gaps.add(gapInterval);
+      previous2 = current2;
+    }
+    // Check if there is a gap between last event adn the end of the day.
+    if (previous2.end()!= TimeRange.END_OF_DAY) {
+      gaps.add(TimeRange.fromStartEnd( previous2.end(),TimeRange.END_OF_DAY, true));
+    }
+    // Go through the gaps and check if the requested duration fits in them.
+    for (int i=0; i<gaps.size();i++ ){
+      if (gaps.get(i).duration() >= request.getDuration() ){
+        // If so, add to the resulting set.
+        possibleTimes.add(gaps.get(i));
+      }
+    }  
+    return possibleTimes;
   }
 }

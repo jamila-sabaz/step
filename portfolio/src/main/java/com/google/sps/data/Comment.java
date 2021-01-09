@@ -17,6 +17,7 @@ package com.google.sps.data;
  * Class representing the comment object with its properties.
  */
 public final class Comment {
+
   /** Private variables to be used in the constructor to pass the values/input to properties.
    * @param id - ID number to keep track of coments, so comments can have the same title/text.
    * @param title - Content of the comment written as text.

@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABbDCq1phJn7qVnqbhy7MgjDG0x8yxOKE"></script>
     <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABbDCq1phJn7qVnqbhy7MgjDG0x8yxOKE"></script>
   </head>
 
-  <body onload="loadComments();" >
+
+  <body onload="loadComments(); createMap(); ">
     <!-- Image with intro for aesthetics -->
     <div class="hero-image">
       <div class="hero-text">
@@ -188,14 +190,12 @@
       </div> 
 
       <center>
-      
+
         <h1>Comment List</h1>
-        
         <form action="/data">
           <label for="limit">Number of comments to display (between 1 and 10):</label>
           <input type="number" id="limit" name="limit" min="1" max="10">
           <br/>
-
           <button type="button" id = "refresh" onclick="loadComments()"> Click to Refresh! </button>
         </form>
 
@@ -209,6 +209,10 @@
         <div id="comment-list"></div>
 
         <button type="button" id="delete-comments">Click Here to Delete Comments!</button>
+
+        <h1>Favorite Places in Adelaide!</h1>
+        <div id="map"></div>
+        <p>Click in the map to show me your favorite restaurants and cafes. </p>
 
       </center>
       

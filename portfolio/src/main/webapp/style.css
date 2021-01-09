@@ -8,7 +8,6 @@
   width: 100%;
   background-color:hsla(9, 100%, 64%, 0.5);
 }
-
 #about-me {
   width: 70%;
   margin-left:15%;
@@ -237,4 +236,10 @@ img {vertical-align: middle;}
 
 .comment span {
   flex-grow: 1;
+}
+
+#map {
+  border: thin solid black;
+  height: 500px;
+  width: 500px;
 }

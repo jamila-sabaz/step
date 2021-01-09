@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that encapsulates some data from training exercises. */
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
- 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     long id = Long.parseLong(request.getParameter("id"));

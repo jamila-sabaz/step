@@ -32,6 +32,7 @@ public final class FindMeetingQuery {
     Collection<TimeRange> possibleTimes = new ArrayList<>();
     // Result considering only mandatory attendees.
     Collection<TimeRange> timesMandatory = new ArrayList<>();
+
     // Initialise variables for no events and no attendees.
     Collection<Event> NO_EVENTS = Collections.emptySet();
     Collection<String> NO_ATTENDEES = Collections.emptySet();
@@ -46,7 +47,7 @@ public final class FindMeetingQuery {
 
     // Event list with only mandatory attendees.
     ArrayList<Event> eventMandatory = new ArrayList<>(events);
-    // Check if there are optional attendees and create gaps only considering mandatory attendees.
+    // Check if there are optional attendees and create a new list of events only considering mandatory attendees. THis will be needed if in the end initial result is empty because of the optional attendees.
     if ((!request.getAttendees().isEmpty()) && (! request.getOptionalAttendees().isEmpty())){
       for (int i=0; i<eventMandatory.size(); i++){
         if((eventMandatory.get(i).getAttendees() .containsAll( request.getOptionalAttendees() )) ){
@@ -54,6 +55,7 @@ public final class FindMeetingQuery {
         }
       }
     }
+
     // Special case: duration is longer than a day. No option returned.
     if (request.getDuration() >  TimeRange.WHOLE_DAY.duration() ) {
       return possibleTimes; // Empty set.
@@ -70,6 +72,7 @@ public final class FindMeetingQuery {
       return possibleTimes;
     }
     // Special case: if the only events attendee is not the one requesting. ignore them. UPDATE: check optional attendees as well.
+
     // Initialise counter to check how many events don't have requested attendees.
     int count = 0 ;
     for ( int i=0; i< eventList.size(); i++){
@@ -106,7 +109,7 @@ public final class FindMeetingQuery {
     }
     merged.add(previous);  
 
-    // Do the same for Mandatory events only/
+    // Do the same for Mandatory events only.
     for(int i=1;i<eventMandatory.size();i++){
       TimeRange currentMandatory = eventMandatory.get(i).getWhen();
 
@@ -129,7 +132,7 @@ public final class FindMeetingQuery {
     TimeRange previous2 = merged.get(0);
     TimeRange current2 = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.START_OF_DAY, false);
 
-    // FOr mandatory meetings.
+    // Same for the mandatory meetings.
     TimeRange prevMandatory2 = mergedMandatory.get(0);
     TimeRange currentMandatory2 = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.START_OF_DAY, false);
 

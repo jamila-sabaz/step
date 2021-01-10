@@ -279,7 +279,7 @@ public final class FindMeetingQueryTest {
     // 1. Have each person have different events. Add an optional attendee C who has an all-day event. The same three time slots should be returned as when C was not invited.
     //
     // Events  :       |--A--|     |--B--|
-    //           |-----------C---optional------| 
+    //           |---------C-optional----------| 
     // Day     : |-----------------------------|
     // Options : |--1--|     |--2--|     |--3--|
 
@@ -288,7 +288,7 @@ public final class FindMeetingQueryTest {
             Arrays.asList(PERSON_A)),
         new Event("Event 2", TimeRange.fromStartDuration(TIME_0900AM, DURATION_30_MINUTES),
             Arrays.asList(PERSON_B)),
-        new Event("Event 3", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, false),
+        new Event("Event 3", TimeRange.WHOLE_DAY,
         Arrays.asList(PERSON_C)));
 
     MeetingRequest request =
@@ -359,7 +359,55 @@ public final class FindMeetingQueryTest {
 
     Assert.assertEquals(expected, actual);
   }
-  // 4. No mandatory attendees, just two optional attendees with several gaps in their schedules. Those gaps should be identified and returned.
 
-  // 5. No mandatory attendees, just two optional attendees with no gaps in their schedules. query should return that the whole day is available since the optional attendees cannot be accommodated and the mandatory ones (all zero of them) are free all day.
+  @Test
+  public void noMandatoryAttendees() {
+    // 4. No mandatory attendees, just two optional attendees with several gaps in their schedules. Those gaps should be identified and returned.
+    //
+    // Events  : |--A--|     |----B----|
+    // Day     : |---------------------|
+    // Options :       |-----|
+
+    Collection<Event> events = Arrays.asList(
+        new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
+            Arrays.asList(PERSON_A)),
+        new Event("Event 2", TimeRange.fromStartEnd(TIME_0900AM, TimeRange.END_OF_DAY, true),
+            Arrays.asList(PERSON_B)));
+
+    MeetingRequest request = new MeetingRequest(NO_ATTENDEES, DURATION_30_MINUTES);
+
+    request.addOptionalAttendee(PERSON_A);
+    request.addOptionalAttendee(PERSON_B);
+
+    Collection<TimeRange> actual = query.query(events, request);
+    Collection<TimeRange> expected =
+        Arrays.asList(TimeRange.fromStartDuration(TIME_0830AM, DURATION_30_MINUTES));
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void noMandatoryAttendeesWholeDay() {
+    // 5. No mandatory attendees, just two optional attendees with no gaps in their schedules. query should return that the whole day is available since the optional attendees cannot be accommodated and the mandatory ones (all zero of them) are free all day.
+    //
+    // Events  : |--A------||-----B----|
+    // Day     : |---------------------|
+    // Options : 
+
+    Collection<Event> events = Arrays.asList(
+        new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0930AM, false),
+            Arrays.asList(PERSON_A)),
+        new Event("Event 2", TimeRange.fromStartEnd(TIME_0900AM, TimeRange.END_OF_DAY, true),
+            Arrays.asList(PERSON_B)));
+
+    MeetingRequest request = new MeetingRequest(NO_ATTENDEES, DURATION_30_MINUTES);
+
+    request.addOptionalAttendee(PERSON_A);
+    request.addOptionalAttendee(PERSON_B);
+
+    Collection<TimeRange> actual = query.query(events, request);
+    Collection<TimeRange> expected = Arrays.asList(TimeRange.WHOLE_DAY);
+
+    Assert.assertEquals(expected, actual);
+  }
 }

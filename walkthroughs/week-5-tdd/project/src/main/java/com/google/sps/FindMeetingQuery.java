@@ -27,49 +27,72 @@ public final class FindMeetingQuery {
 
     // Convert collection of events into an arraylist.
     ArrayList<Event> eventList = new ArrayList<>(events);
+    
     // Initialise result variable. 
     Collection<TimeRange> possibleTimes = new ArrayList<>();
-
+    // Result considering only mandatory attendees.
+    Collection<TimeRange> timesMandatory = new ArrayList<>();
     // Initialise variables for no events and no attendees.
     Collection<Event> NO_EVENTS = Collections.emptySet();
     Collection<String> NO_ATTENDEES = Collections.emptySet();
+
     
+    // Check if there are optional attendee, who is busy and can't attend.
+    for (int i=0; i< eventList.size(); i++) {
+      if ( ( (eventList.get(i).getAttendees() .containsAll( request.getOptionalAttendees() )) == true ) && (eventList.get(i).getWhen() == TimeRange.WHOLE_DAY) ) {
+          eventList.remove(eventList.get(i)); 
+      }
+    }
+
+    // Event list with only mandatory attendees.
+    ArrayList<Event> eventMandatory = new ArrayList<>(events);
+    // Check if there are optional attendees and create gaps only considering mandatory attendees.
+    if ((!request.getAttendees().isEmpty()) && (! request.getOptionalAttendees().isEmpty())){
+      for (int i=0; i<eventMandatory.size(); i++){
+        if((eventMandatory.get(i).getAttendees() .containsAll( request.getOptionalAttendees() )) ){
+          eventMandatory.remove(eventMandatory.get(i));
+        }
+      }
+    }
     // Special case: duration is longer than a day. No option returned.
     if (request.getDuration() >  TimeRange.WHOLE_DAY.duration() ) {
       return possibleTimes; // Empty set.
     }
-    // Special case: no attendees. Return the whole day.
-    if (request.getAttendees() == NO_ATTENDEES ) {
+    // Special case: no attendees and no optional attendees. Return the whole day.
+    if ((request.getAttendees() == NO_ATTENDEES) && (request.getOptionalAttendees() == NO_ATTENDEES) ) {
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
-    }
+    } 
+
     // Special case: no events on the day. Return the whole day.
     if ( (events == NO_EVENTS)) {
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
-    // Special case: if the only events attendee is not the one requesting. ignore them.
+    // Special case: if the only events attendee is not the one requesting. ignore them. UPDATE: check optional attendees as well.
     // Initialise counter to check how many events don't have requested attendees.
     int count = 0 ;
-    for ( int i=0; i< events.size(); i++){
+    for ( int i=0; i< eventList.size(); i++){
       // If the requested attendees list doesn't contain event attendees increment count.
-      if ( request.getAttendees() .containsAll( (eventList.get(i).getAttendees() )) == false ) {
+      if ( (request.getAttendees() .containsAll( (eventList.get(i).getAttendees() )) == false) && (request.getOptionalAttendees() .containsAll( (eventList.get(i).getAttendees() )) == false) ) {
         count ++; 
       }
     }
     // Check if counted number is same as number of events.
-    if (count == events.size()){
+    if (count == eventList.size()){
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
     
     // Variable for the merged events for nested and overlapping cases.
     List<TimeRange> merged = new ArrayList<TimeRange>();
+    List<TimeRange> mergedMandatory = new ArrayList<TimeRange>();
     // Previous event variable.
     TimeRange previous = eventList.get(0).getWhen();
+    TimeRange prevMandatory = eventMandatory.get(0).getWhen();
     
     // Iterate through events to find overlaps to merge them.
-    for(int i=1;i<events.size();i++){
+    for(int i=1;i<eventList.size();i++){
       TimeRange current = eventList.get(i).getWhen();
 
       if(previous.end() >= current.start()){
@@ -83,12 +106,32 @@ public final class FindMeetingQuery {
     }
     merged.add(previous);  
 
+    // Do the same for Mandatory events only/
+    for(int i=1;i<eventMandatory.size();i++){
+      TimeRange currentMandatory = eventMandatory.get(i).getWhen();
+
+      if(prevMandatory.end() >= currentMandatory.start()){
+        // New updated event interval covering both events.
+        TimeRange newTimeOfEvent =  TimeRange.fromStartEnd ( Math.min(prevMandatory.start(), currentMandatory.start() ), Math.max( prevMandatory.end(), currentMandatory.end() ),  false );
+        prevMandatory = newTimeOfEvent;
+      } else {
+        mergedMandatory.add(prevMandatory);
+        prevMandatory = currentMandatory;
+      }
+    }
+    mergedMandatory.add(prevMandatory);  
+
+
     // Now find intervals between the meetings.
     List<TimeRange> gaps = new ArrayList<>();
+    List<TimeRange> gapsMandatory = new ArrayList<>();
     // Avoid same name of the variables.
     TimeRange previous2 = merged.get(0);
-
     TimeRange current2 = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.START_OF_DAY, false);
+
+    // FOr mandatory meetings.
+    TimeRange prevMandatory2 = mergedMandatory.get(0);
+    TimeRange currentMandatory2 = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.START_OF_DAY, false);
 
     // Compare the first event with the start of the day.
     if (previous2.start()!=current2.start()){
@@ -109,13 +152,57 @@ public final class FindMeetingQuery {
     if (previous2.end()!= TimeRange.END_OF_DAY) {
       gaps.add(TimeRange.fromStartEnd( previous2.end(),TimeRange.END_OF_DAY, true));
     }
+
+    // Now for mandatory event list.
+    // Compare the first event with the start of the day.
+    if (prevMandatory2.start()!=currentMandatory2.start()){
+      // If there is space between start of the day and the first meeting add the interval.
+      gapsMandatory.add(TimeRange.fromStartEnd( currentMandatory2.start(), prevMandatory2.start(),false));
+    }
+
+    for(int i=1; i<merged.size(); i++){
+      // Assign current event to the second event (index 1).
+      currentMandatory2 = merged.get(i);
+      // Add interval.
+      TimeRange gapInterval =  TimeRange.fromStartEnd(  prevMandatory2.end(),currentMandatory2.start(),false);
+      
+      gapsMandatory.add(gapInterval);
+      prevMandatory2 = currentMandatory2;
+    }
+    // Check if there is a gap between last event adn the end of the day.
+    if (prevMandatory2.end()!= TimeRange.END_OF_DAY) {
+      gapsMandatory.add(TimeRange.fromStartEnd( prevMandatory2.end(),TimeRange.END_OF_DAY, true));
+    }
+
+   
+
     // Go through the gaps and check if the requested duration fits in them.
     for (int i=0; i<gaps.size();i++ ){
       if (gaps.get(i).duration() >= request.getDuration() ){
         // If so, add to the resulting set.
         possibleTimes.add(gaps.get(i));
       }
-    }  
+    }
+
+    // Go through the Mandatory gaps and check if the requested duration fits in them.
+    for (int i=0; i<gapsMandatory.size();i++ ){
+      if (gapsMandatory.get(i).duration() >= request.getDuration() ){
+        // If so, add to the resulting set.
+        timesMandatory.add(gapsMandatory.get(i));
+      }
+    }
+    
+    // Check if there are no timeslots available and there are no mandatory attendees, return the whole day.
+    if ((possibleTimes.isEmpty()) && (request.getAttendees().isEmpty()) && (! request.getOptionalAttendees().isEmpty())){
+      possibleTimes.add(TimeRange.WHOLE_DAY);
+      return possibleTimes;
+    }
+    else if ((possibleTimes.isEmpty()) && (!request.getAttendees().isEmpty()) && (! request.getOptionalAttendees().isEmpty())){
+      return timesMandatory;
+    }
+    
+    
     return possibleTimes;
   }
+  
 }

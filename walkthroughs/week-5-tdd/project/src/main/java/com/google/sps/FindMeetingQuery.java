@@ -203,9 +203,6 @@ public final class FindMeetingQuery {
     else if ((possibleTimes.isEmpty()) && (!request.getAttendees().isEmpty()) && (! request.getOptionalAttendees().isEmpty())){
       return timesMandatory;
     }
-    
-    
     return possibleTimes;
   }
-  
 }

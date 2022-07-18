@@ -6,21 +6,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABbDCq1phJn7qVnqbhy7MgjDG0x8yxOKE"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_YZsgESlvR57K74Ln_UbsXd4Cd004Igs"></script>
     <script src="script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABbDCq1phJn7qVnqbhy7MgjDG0x8yxOKE"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_YZsgESlvR57K74Ln_UbsXd4Cd004Igs"></script>
   </head>
 
 
   <body onload="loadComments(); createMap(); ">
+
     <!-- Image with intro for aesthetics -->
     <div class="hero-image">
-      <div class="hero-text">
-        <h1>I am Zhamilya (Jamila) Sabazova</h1>
-        <p>And I'm a Software Engineer from Adelaide</p>
-        <button onclick="location.href='#about-me'" type="button">About me</button><br>
-        <button onclick="location.href='#projects'" type="button">My Projects</button>
-      </div>
+        <div class="hero-text">
+            <h1 id="jamila-portfolio">I am Jamila Sabazova</h1>
+            <p>And I'm a Tech Consultant/Software Engineer at EY</p>
+            <button onclick="location.href='#about-me'"	class="button-40" role="button" type="button">Learn more about me</button>
+            <button onclick="location.href='#projects'" class="button-40" role="button" type="button">My Projects</button>
+        </div>
+        
     </div>
       
     <!-- Main Content! -->
@@ -28,67 +30,42 @@
       <!-- Description -->
       <div id="bio">
         <section class="w3-container w3-center w3-content" >
-          <h2 class="w3-wide"><br>Jamila's Portfolio </h2>
-          <p class="w3-opacity"><i>Currently STEP intern at Google Netsoft Team</i></p>
+          <h2 class="w3-wide" id="jamila-portfolio"><br>Jamila's Portfolio </h2>
+            <p class="w3-opacity"><i>Consultant in Digital and Emerging Technologies Team at EY Financial Services Organization (FSO)</i></p>
+            <p class="w3-justify" id="bio-text">
+              Jamila graduated with a double degree in Mechanical and Aerospace Engineering and Maths and Computer Sciences. She has proven experience in technical problem solving, full-stack development and machine learning on real-life projects from multiple professional internships in software and construction industries.
+            <br><br>
+            Her current client engagement is an SAP S4 Hana Migration to a Public Cloud Platform. She is performing dual roles as Technical Analyst and Scrum Master. She has also made contributions to Tech Op Model and ITRA control scoping and testing.
+            <br><br>
+            <b>Strengths:</b> Stakeholder communication, Problem solving, Critical thinking, Jira administration, Excel and PowerPoint Wizardly skills, IT Risk Assessment, Cloud engineering, web development (look at this beautiful website deployed on Google Cloud Platform)
+            <br><b>Weaknesses:</b> Rubic's Cube Solving, React Splice functions, chocolate mousse cakes
+            </p>
+          </section>
+        
 
-          <p class="w3-justify">
-            Fourth-year mechanical and aerospace engineering and computer science student, starting my Honours in Aerospace Engineering, Attitude Control Systems in CubeSat next year. Australia’s Top 100 Future Leaders 2018-19, 2019-20 finalist (Mechanical and Electrical Engineering awards). I’m an open-minded citizen of the world,originally from Kazakhstan, calling South Australia home.
-          <br><br>
-          As a Founder President of the Society of Women in Space Exploration, first-ever Australian chapter, I am a passionate STEMinist, who advocates for increasing the presence and inclusion of women in science, technology, engineering, and math. Excited to get involved in the space exploration industry, and dreaming to become one of the #MarsGeneration! I love volunteering because making my contribution to the societies is my genuine desire, and, I believe, compassion and collaboration are leading this world.
-          <br><br>
-          <b>Strengths:</b> Problem-solving, Critical thinking, Team Leadership, Engineering Communication, CAD design
-          br><b>Weaknesses:</b> Rubic's Cube Solving, Multi-tasking, FEA, chocolate mousse cakes    
-
-          </p>
-        </section>
-      </div>
-
+      
       <!-- About my life 3 small articles-->
       <section class="w3-row-padding w3-light-grey w3-container w3-center w3-content" id = "about-me">
         <h1 class="w3-justify w3-center">About me</h1>
-        <button class="w3-third btn success" onclick="f=openSection('pathtogoogle-container')">My Path to Google</button>
+    
+        <button id="three-buttons" class="button-40" role="button" onclick="f=openSection('pathtogoogle-container')">My work at EY</button>
+        <button id="three-buttons" class="button-40" role="button" onclick="f=openSection('hobbies-container')">My Hobbies</button>
+        <button id="three-buttons" class="button-40" role="button" onclick="f=openSection('vision-container')">My Vision</button>
+        <!-- <button class="w3-third btn success" onclick="f=openSection('pathtogoogle-container')">My work at EY</button>
         <button class="w3-third btn info" onclick="f=openSection('hobbies-container')">My Hobbies</button>
-        <button class="w3-third btn danger" onclick="f=openSection('vision-container')">My Vision</button>
-
+        <button class="w3-third btn danger" onclick="f=openSection('vision-container')">My Vision</button> -->
+            <br><br>
         <div class="flex-container w3-container w3-center w3-content">
           <div id="pathtogoogle-container" class="w3-container w3-hide" >
             <article >	
-              <h3>My Path to Google</h3>
+              <h3>My work at EY</h3>
+              <img src="./images/EY DET.png" alt="DET" style="width:225px; height:300px">
+              
+              <p style="color:rgb(14, 14, 63);font-size:16px;" font-face="Verdana">
+                I joined EY in February 2022 as a grad consultant as I streamlined my passion to software engineering into tech consulting. My first engagement was a long-term program at insurance provider where I upskilled my scrum and agile methodologies knowledge and contributed to Technology operational model and IT Risk Assessment controls.
+                <br>
+                Outside of my engagement I am involved in internal EY initiatives such as EY DNA Solutions Hub as a Junior Cloud Engineer. I am practicing creating Azure infrastructures using ARM templates as well as contributing to the Data Product Framework with pipelines customization and deployment. 
 
-              <!-- Slide Show -->
-              <div class="slideshow-container">
-                <div class="mySlides fade">
-                  <div class="numbertext">1 / 3</div>
-                  <img src="./images/google2018.jpeg" style="width:225px; height:300px"">	
-                </div>
-                                                                                        
-                <div class="mySlides fade">
-                  <div class="numbertext">2 / 3</div>
-                  <img src="./images/0.jpeg" style="width:225px; height:300px"">
-                </div>
-                
-                <div class="mySlides fade">
-                  <div class="numbertext">3 / 3</div>
-                  <img src="./images/1598582952334.jpeg" style="width:225px; height:300px"">
-
-                </div>
-
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-              </div>
-              <br>
-
-              <div style="text-align:center">
-                  <span class="dot" onclick="currentSlide(1)"></span> 
-                  <span class="dot" onclick="currentSlide(2)"></span> 
-                  <span class="dot" onclick="currentSlide(3)"></span> 
-              </div>
-
-              <p style="color:rgb(14, 14, 63);font-size:18px;">
-
-                In February 2019 my mum and I went to travel to USA. We did a road trip from Los Angeles to San 	useums 		and Silicon Valley campuses. 
-                Then we realised a tour can be arranged only by a company representative, who we did not know, so we just stared at it from the outside (lol). This is me on Google HQ Mountain View campus, I came there as a tourist and I told my mum I wanted to work there, she was skeptical. 
-                It’s been almost 2 years since then and now I’m a STEP intern at Google Sydney branch. Dreams come true! 
               </p>
             </article>
           </div>
@@ -96,57 +73,105 @@
           <div id="hobbies-container" class="w3-container w3-hide">
             <article >	
               <h3>My Hobbies</h3>
-              <img src="./images/chess.jpeg" alt="Chess" style="width:225px; height:300px"">
-              <p style="color:rgb(14, 14, 63);font-size:18px;">
-                I've been playing chess since primary school, and liked to compete. In my country chess is considered as a serious sport and I played my way up to the title of Candidate Master of Sports in Chess. Currently I don't practice, I only played a few South Australian championates and Australian Young Masters Open Tournament (got destroyed in both). My FIDE rating dropped to whooping 1588.
+              <!-- Slide Show -->
+              <div class="slideshow-container">
+                <div class="mySlides fade">
+                  <div class="numbertext">1 / 2</div>
+                  <img src="./images/Lyra.png" style="width:225px; height:300px"">	
+                </div>
+                <div class="mySlides fade">
+                  <div class="numbertext">2 / 2</div>
+                  <img src="./images/silks.png" style="width:225px; height:300px"">
+                </div>
+                
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+              </div>
+              <br>
+              
+              <div style="text-align:center">
+                  <span class="dot" onclick="currentSlide(1)"></span> 
+                  <span class="dot" onclick="currentSlide(2)"></span> 
+                  
+              </div>
+              
+              <p style="color:rgb(14, 14, 63);font-size:16px;" font-face="Verdana">
+                I love aerial gymnastics. I started doing it around 4 years ago and progressed a lot since then. I primarily train on aerial silks, aerial hoop and trapeze. It is my passion outside of work and I enjoy it, I learnt to enjoy training my core strength and almost got a <b>visible</b> six pack.
               </p>	
             </article>
           </div>
             
           <div id="vision-container" class="w3-container w3-hide">
             <article >
-
               <h3>My Vision</h3>
               <img src="./images/Screen Shot 2020-12-09 at 12.23.06 am.png" alt="me" style="width:225px; height:300px">
-              <p style="color:rgb(14, 14, 63);font-size:18px;">
-                I love tech because it helps everyone and makes the world a better place every day. 
-                I believe that tech is a tool, that makes things more accessible and easier for the user. It also is the most fast-moving and progressive industry, that is influencing everyone’s lives! So it has to be adaptive and tolerant in terms of social norms, diversity and inclusion 🔭🚀
+              <p style="color:rgb(14, 14, 63);font-size:16px;" font-face="Verdana">
+                I love tech because of its' potential to help and makes the world a better place every day. 
+                I believe that technologies is a tool, that makes things more accessible and easier for the users. It also is the most fast-moving and progressive industry, that is influencing everyone's lives! So it has to be adaptive for diversity and inclusion.
+                <br><br>
+                As an EY consultant I aspire to be a subject matter expert in the field of cloud computing and engineering. And build a better working world.
+
               </p>
             </article>
           </div> 
-         
+             
         </div>
+        <br>
       </section>
+    </div>
 
+    <br><br><br>
       <div id= 'buttons-container'>
         <center>
           <div class="w3-half" id="randomshow">
-            <h4>Click here to get a random tv show suggestion:</h4>
-            <button onclick="recommendRandomShow()">tv show?</button>
+            <h4>Click here to get a tv show suggestion from me:</h4>
+            <button onclick="recommendRandomShow()" class="button-40" role="button">Netflix recommendation?</button>
+            
             <div id="tv-show-container"></div>
           </div>
           <div class="w3-half" id="randomfact">
             <h4>Click here to get a random fact about Jamila:<br></h4>
-            <button onclick="f=randomFact()">Random Fact?</button>
+            <button onclick="f=randomFact()" class="button-40" role="button">Random Fact?</button>
+            
             <div id="fact-container"></div>
           </div>
         </center>
       </div>
+
+    <br><br><br>
         
       <!-- Table with my projects tbc -->
-
       <div id="projects">
         <center>
           <div id="projects-header">
-            <h2>My Projects</h2>
+            
+            <h2>My Side Projects</h2>
           </div>
-                    
-          <table class="w3-table w3-striped" id='table'>
+           <!-- <div style="overflow-x: auto;">       -->
+          <table id='proj'>
             <tr>
               <th>Dates</th>
               <th>Project Name</th>
               <th>Description</th>
               <th>Achievements and links (if appplicable)</th>
+            </tr>
+            <tr>
+                <td>July 2022</td>
+                <td>Grocery Prices Spy</td>
+                <td>
+                  Web application that fetches prices for common groceries from the supermarkets' online catalogues using JS variable tags on public websites. It compares any product and its prices from Coles, Woolies and ALDI.
+                </td>
+                <td>Work in progress</td>
+            </tr>
+            
+            <tr>
+                <td>May 2022</td>
+                <td>Microsoft ARM Templates</td>
+                <td>
+                    Learnt to export and cusomize ARM templates and its variables and deploy Azure infrastructures using them.
+                </td>
+                <td>Work in progress</td>
             </tr>
             <tr>
               <td>June-Nov 2020</td>
@@ -171,33 +196,30 @@
               <td>Mar-June 2019</td>
               <td>Warman Design and Build Competition</td>
               <td>
-                I was a team leader for the project, which was a part of the National Warman Design and     Build Competition. 
+                I was a team leader for the project, which was a part of the National Warman Design and Build Competition. 
                 The Project was undertaken as part of the Mechanical Engineering Design Practice course at the University. The goal was to build a functional robot based on ardruino controllers executing a certain task - collecting, transporting and releasing a payload of 20 plastic balls from one container to another.
               </td>
               <td></td>
             </tr>
-            <tr>
-              <td>Mar 2018 - Mar 2019</td>
-              <td>The Australian Youth Aerospace Association’s (AYAA) Rocket Project</td>
-
-              <td>A co-curricular project supported by Adelaide University Design and engineering practical team (ADEPT) - building a high-powered rocket with a scientific payload, aiming to reach 10,000 feet.
-                Participating with a "Project Improbable" Adelaide University team in the Australian Universities Rocket Competition (AURC)</td>
-              <td>The team got the second place prize, the performance exceeded expectations by getting close to the 	target attitude by 300 m.</td>
-            </tr>
-                        
+            
+          
           </table>
+        <!-- </div>    -->
         </center>
       </div> 
 
+      <br><br>
+
       <center>
 
-        <h1>Comment List</h1>
+        <h1 font-face="Georgia">Leave me feedback comments!</h1>
         <form action="/data">
-          <label for="limit">Number of comments to display (between 1 and 10):</label>
+          <label for="limit" font-face="Verdana">Number of comments to display (between 1 and 10):</label>
           <input type="number" id="limit" name="limit" min="1" max="10">
           <br/>
           <button type="button" id = "refresh" onclick="loadComments()"> Click to Refresh! </button>
         </form>
+        <br>
 
         <form method="POST" action="/data">
           <input type="text" name="title" />
@@ -208,15 +230,15 @@
         <hr/>
         <div id="comment-list"></div>
 
-        <button type="button" id="delete-comments">Click Here to Delete Comments!</button>
+        <button type="button" id="delete-comments" >Click Here to Delete Comments!</button>
 
-        <h1>Favorite Places in Adelaide!</h1>
+        <br><br>
+        <h1 font-face="Georgia">Recommend me a Restaurant in Melbourne!</h1>
         <div id="map"></div>
-        <p>Click in the map to show me your favorite restaurants and cafes. </p>
-
+        <p font-face="Verdana">Click on the map to show me your favorite restaurants and cafes please. </p>
+<br>
       </center>
       
-
     </div>
   </body>
   <!-- Footer -->
